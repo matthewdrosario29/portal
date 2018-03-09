@@ -1,0 +1,576 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="Content-Type" content="text/ht ml; charset=utf-8" />
+        <meta name="google-signin-client_id" content="796362944125-hsanqgetffdqucbl0g46l6mjbcbeaib2.apps.googleusercontent.com"/>
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+        <title>Helix Portal</title>
+        <!--
+        <link href="../../css/bootstrap.min.css" media="all" rel="stylesheet" type="text/css" />
+        <link href="../../css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css" />
+        <link href="../../css/jquery-ui.css" media="all" rel="stylesheet" type="text/css" />
+        -->
+
+        <!-- CUSTOM JS 
+        <script src ="../../js/portal.js"></script> -->
+        <!--Modules.js
+        <script src ="../../js/functions.js"></script>  
+        <link href="../../css/mystyle.css" media="all" rel="stylesheet" type="text/css"> -->
+    </head>
+    <body>
+        <div class="modal modal-semi-fullscreen fade scrollbar-path-vertical" id="MsgAlertConfirmLogout" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style ="position:fixed;top:0;right:3%;left:3%;width:auto;margin:0">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content" style ="border-radius: 0px;border-color:#204d74">
+                    <div class ="modal-header"><span class ="fa fa-info-circle fa-2x"></span> Log out!</div>
+                    <div class="modal-body" style ="height:60%;max-height: 510px;padding:15px;overflow-y: auto">
+                        <div class = "row" style ="padding-bottom: 20px">
+                            <div class ="col-md-12">
+                                <center><p id ="MessageAlert">Are you sure you want to logout? </p></center>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class ="btn btn-primary helix-btn" onclick="confirmLogout();">Yes</button>
+                            <button class ="btn btn-primary helix-btn" onclick="closeNoReloadMsgbox();">Cancel</button>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal modal-semi-fullscreen fade scrollbar-path-vertical" id="reportForm" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style ="position:fixed;top:0%;right:3%;left:3%;width:auto;margin:0">
+            <div class="modal-dialog modal-md" >
+                <div class="modal-content" style ="border-radius: 0px;border-color:#204d74">
+                    <div class ="modal-header">Reports</div>
+                    <div class="modal-body" id ="test" style ="height:60%;max-height: 510px;padding:15px;overflow-y: auto">
+                        <div id="available-reports">
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <span style ="font-family: calibri;font-size:8pt">Print/Export options</span>
+                                <select class ="form-control input-sm" id ="exportType">
+                                    <!--<option val =""></option>-->
+                                    <option value ="pdf">PDF</option>
+                                    <option value ="xls">Excel(XLS)</option>
+                                    <option value ="csv">Excel(CSV)</option>
+                                    <option value ="rtf">MS Word(RTF)</option>
+                                    <option value ="word">MS Word(DOC)</option>
+                                </select>
+                                <br>
+                                <div class="btn-group pull-right">
+                                    <button type="button" class="btn btn-success btn-sm helix-btn" onclick ="closeLookupreport();">Close</button>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal modal-semi-fullscreen fade scrollbar-path-vertical" id="requistionDetails" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style ="position:fixed;top:5%;right:3%;left:3%;width:auto;margin:0">
+            <div class="modal-dialog modal-lg" >
+                <div class="modal-content" style ="border-radius: 0px;border-color:#204d74">
+                    <div class ="modal-header">Details</div>
+                    <div class="modal-body" style ="height:60%;max-height: 510px;padding:15px;overflow-y: auto">
+                        <div id="div-tbl-details-requisition">
+                            <div class="table-responsive">
+                                <table class="table  table-condensed table-striped table-hover" id ="tbl-details-requisition">
+                                    <thead>
+                                        <tr>
+                                            <th>Item</th>
+                                            <th>Qty</th>
+                                            <th>Est. Unit Cost</th>
+                                            <th>Est. Cost</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class = "tbody-responsive">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-12" style ="margin-top:20px">
+                            <div class="btn-group pull-right">
+                                <button type="button" class="btn btn-primary helix-btn" onclick ="closeLookupDetails();">Close</button>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal modal-semi-fullscreen fade scrollbar-path-vertical" id="billingDetails" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style ="position:fixed;top:5%;right:3%;left:3%;width:auto;margin:0">
+            <div class="modal-dialog modal-lg" >
+                <div class="modal-content" style ="border-radius: 0px;border-color:#204d74">
+                    <div class ="modal-header">Details</div>
+                    <div class="modal-body" style ="height:60%;max-height: 510px;padding:15px;overflow-y: auto">
+                        <div id="div-tbl-details-requisition">
+                            <div class="table-responsive">
+                                <table class="table  table-condensed table-striped table-hover" id ="tbl-details-billing">
+                                    <thead>
+                                        <tr>
+                                            <th>Charge</th>
+                                            <th>Billing Section</th>
+                                            <th>Line Memo</th>
+                                            <th>Doc total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class = "tbody-responsive">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-12" style ="margin-top:20px">
+                            <div class="btn-group pull-right">
+                                <button type="button" class="btn btn-primary helix-btn" onclick ="closeBillingDetails();">Close</button>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal modal-semi-fullscreen fade scrollbar-path-vertical" id="procurementDetails" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style ="position:fixed;top:5%;right:3%;left:3%;width:auto;margin:0">
+            <div class="modal-dialog modal-lg" >
+                <div class="modal-content" style ="border-radius: 0px;border-color:#204d74">
+                    <div class ="modal-header">Details</div>
+                    <div class="modal-body" style ="height:60%;max-height: 510px;padding:15px;overflow-y: auto">
+                        <div id="div-tbl-details-procurement">
+                            <div class="table-responsive">
+                                <table class="table  table-condensed table-striped table-hover" id ="tbl-details-procurement">
+                                    <thead>
+                                        <tr>
+                                            <th>Item</th>
+                                            <th>Particulars</th>
+                                            <th>Qty</th>
+                                            <th>Unit Cost</th>
+                                            <th>Ext Cost</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class = "tbody-responsive">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-12" style ="margin-top:20px">
+                            <div class="btn-group pull-right">
+                                <button type="button" class="btn btn-primary helix-btn" onclick ="closeProcurementDetails();">Close</button>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal modal-semi-fullscreen fade scrollbar-path-vertical" id="rfpDetails" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style ="position:fixed;top:5%;right:3%;left:3%;width:auto;margin:0">
+            <div class="modal-dialog modal-lg" >
+                <div class="modal-content" style ="border-radius: 0px;border-color:#204d74">
+                    <div class ="modal-header">Details</div>
+                    <div class="modal-body" style ="height:60%;max-height: 510px;padding:15px;overflow-y: auto">
+                        <div id="div-tbl-details-procurement">
+                            <div class="table-responsive">
+                                <table class="table  table-condensed table-striped table-hover" id ="tbl-details-rfpDetails">
+                                    <thead>
+                                        <tr>
+                                            <th>TranID</th>
+                                            <th>Amount</th>
+                                            <th>Line Memo</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class = "tbody-responsive">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-12" style ="margin-top:20px">
+                            <div class="btn-group pull-right">
+                                <button type="button" class="btn btn-primary helix-btn" onclick ="closeRfpDetails();">Close</button>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal modal-semi-fullscreen fade scrollbar-path-vertical" id="apDetails" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style ="position:fixed;top:5%;right:3%;left:3%;width:auto;margin:0">
+            <div class="modal-dialog" >
+                <div class="modal-content" style ="border-radius: 0px;border-color:#204d74">
+                    <div class ="modal-header">Details</div>
+                    <div class="modal-body" style ="height:60%;max-height: 510px;padding:15px;overflow-y: auto">
+                        <div id="div-tbl-details-ap">
+                            <div class="table-responsive">
+                                <table class="table  table-condensed table-striped table-hover" id ="tbl-details-apDetails">
+                                    <thead>
+                                        <tr>
+                                            <th>Cost Centers</th>
+                                            <th>Account</th>
+                                            <th style = "text-align:right">Debit</th>
+                                            <th style = "text-align:right">Credit</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class = "tbody-responsive">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-12" style ="margin-top:20px">
+                            <div class="btn-group pull-right">
+                                <button type="button" class="btn btn-primary helix-btn" onclick ="closeApDetails();">Close</button>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal modal-semi-fullscreen fade scrollbar-path-vertical" id="paymentDetails" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style ="position:fixed;top:5%;right:3%;left:3%;width:auto;margin:0">
+            <div class="modal-dialog modal-lg" >
+                <div class="modal-content" style ="border-radius: 0px;border-color:#204d74">
+                    <div class ="modal-header">Details</div>
+                    <div class="modal-body" style ="height:60%;max-height: 510px;padding:15px;overflow-y: auto">
+                        <div id="div-tbl-details-ap">
+                            <div class="table-responsive">
+                                <table class="table  table-condensed table-striped table-hover" id ="tbl-details-paymentDetails">
+                                    <thead>
+                                        <tr>
+                                            <th>Responsibility</th>
+                                            <th style = "text-align:right">Amount</th>
+                                            <th>Details</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody class = "tbody-responsive">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-12" style ="margin-top:20px">
+                            <div class="btn-group pull-right">
+                                <button type="button" class="btn btn-primary helix-btn" onclick ="closepaymentDetails();">Close</button>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                        </div> 
+                    </div>
+                </div>
+            </div>    
+        </div>
+
+
+        <div class="modal modal-semi-fullscreen fade scrollbar-path-vertical" id="receiptDetails" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style ="position:fixed;top:5%;right:3%;left:3%;width:auto;margin:0">
+            <div class="modal-dialog" >
+                <div class="modal-content" style ="border-radius: 0px;border-color:#204d74">
+                    <div class ="modal-header">Details</div>
+                    <div class="modal-body" style ="height:60%;max-height: 510px;padding:15px;overflow-y: auto">
+                        <div id="">
+                            <div class="table-responsive">
+                                <table class="table  table-condensed table-striped table-hover" id ="tbl-details-receiptDetails">
+                                    <thead>
+                                        <tr>
+                                            <th>GLType</th>
+                                            <th style = "text-align:right">Unit Amount</th>
+                                            <th style = "text-align:right">Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class = "tbody-responsive">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-12" style ="margin-top:20px">
+                            <div class="btn-group pull-right">
+                                <button type="button" class="btn btn-primary helix-btn" onclick ="closeReceiptDetails();">Close</button>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal modal-semi-fullscreen fade scrollbar-path-vertical" id="memberBeneficiary" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style ="position:fixed;top:5%;right:3%;left:3%;width:auto;margin:0">
+            <div class="modal-dialog" >
+                <div class="modal-content" style ="border-radius: 0px;border-color:#204d74">
+                    <div class ="modal-header">Member Beneficiary</div>
+                    <div class="modal-body" style ="height:60%;max-height: 510px;padding:15px;overflow-y: auto">
+                        <div id="">
+                            <div class="table-responsive">
+                                <table class="table  table-condensed table-striped table-hover" id ="tbl-details-members">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Relationship</th>
+                                            <th>Address</th>
+                                            <th>Contact</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class = "tbody-responsive">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-12" style ="margin-top:20px">
+                            <div class="btn-group pull-right">
+                                <button type="button" class="btn btn-primary helix-btn" onclick ="closeMemberDetails();">Close</button>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal modal-semi-fullscreen fade scrollbar-path-vertical" id="ReportPanel" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style ="position:fixed;top:0;right:3%;left:3%;width:auto;margin:0">
+            <div class="modal-dialog" >
+                <div class="modal-content" style ="border-radius: 0px;border-color:#204d74">
+
+                    <div class ="modal-header">Report Panel<a href="#" class ="fa fa-times pull-right" style ="color:#000" onclick="closeReportPanel();"></a></div>
+                    <div class="modal-body" style ="height:60%;max-height: 510px;padding:15px;overflow-y: auto">
+                        <div class = "row" style ="padding-bottom: 10px">
+                            <div class ="col-md-6">
+                                <center><p>List of Available Reports</p></center>
+                                <div id="panel-reports">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <center><p>Report Parameters</p></center>
+                                <div class ="form-group" id ="reportparams">
+                                </div>
+                            </div>
+                        </div>
+                        <div class ="row">
+                            <div class ="col-md-4">
+                                <label>Report Type</label>
+                                <select class ="form-control input-sm" id ="ReportType">
+                                    <option value ="Jasper">Jasper</option>
+                                    <option value ="Crystal">Crystal</option>
+                                </select>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="modal-footer">
+
+                            <div class ="row pull-right adjust-right" role ="group" arial-label="text" style="position:fixed;bottom:0;left:80%;padding-bottom: 20px;margin-top: 20px">
+                                <div class ="col-md-12" id ="Print-Button">
+                                    <button type="button" class="btn btn-success helix-btn" style ="height:30px;font-size:8pt" onclick ="printPanelReport();">Print Report</button>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="modal modal-semi-fullscreen fade scrollbar-path-vertical" id="MsgAlertConfimation" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style ="position:fixed;top:0;right:3%;left:3%;width:auto;margin:0">
+            <div class="modal-dialog">
+                <div class="modal-content" style ="border-radius: 0px;border-color:#204d74">
+                    <div class ="modal-header"><span class ="fa fa-info-circle fa-2x"></span> Alert! <a href="#" class ="fa fa-times pull-right" style ="color:#000"></a></div>
+                    <div class="modal-body" style ="height:60%;max-height: 510px;padding:15px;overflow-y: auto">
+                        <div class = "row" style ="padding-bottom: 20px">
+                            <div class ="col-md-12">
+                                <center><p id ="MessageAlertConfimation"></p></center>
+                                <center>
+                                    <span><button class ="btn btn-success">Save</button><button class ="btn btn-success">Cancel</button></span>
+                                </center>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class ="btn btn-primary helix-btn" onclick="closeMsgbox();">OK</button>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal modal-semi-fullscreen fade scrollbar-path-vertical" id="MsgAlert" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style ="position:fixed;top:0;right:3%;left:3%;width:auto;margin:0">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content" style ="border-radius: 0px;border-color:#204d74">
+                    <div class ="modal-header"><span class ="fa fa-info-circle fa-2x"></span> Alert! <a href="#" class ="fa fa-times pull-right" style ="color:#000"></a></div>
+                    <div class="modal-body" style ="height:60%;max-height: 510px;padding:15px;overflow-y: auto">
+                        <div class = "row" style ="padding-bottom: 20px">
+                            <div class ="col-md-12">
+                                <center><p id ="MessageAlert">Record Successfully Updated! </p></center>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class ="btn btn-primary helix-btn" onclick="closeMsgbox();">OK</button>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal modal-semi-fullscreen fade scrollbar-path-vertical" id="MsgAlertnotreload" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style ="position:fixed;top:0;right:3%;left:3%;width:auto;margin:0">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content" style ="border-radius: 0px;border-color:#204d74">
+                    <div class ="modal-header"><span class ="fa fa-info-circle fa-2x"></span> Alert! <a href="#" class ="fa fa-times pull-right" style ="color:#000"></a></div>
+                    <div class="modal-body" style ="height:60%;max-height: 510px;padding:15px;overflow-y: auto">
+                        <div class = "row" style ="padding-bottom: 20px">
+                            <div class ="col-md-12">
+                                <center><p id ="MessageAlert">Record Successfully Updated! </p></center>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class ="btn btn-primary helix-btn" onclick="closeMsgAlertnotreload();">OK</button>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal modal-semi-fullscreen fade scrollbar-path-vertical" id="MsgAlertConfirm" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style ="position:fixed;top:0;right:3%;left:3%;width:auto;margin:0">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content" style ="border-radius: 0px;border-color:#204d74">
+                    <div class ="modal-header"><span class ="fa fa-info-circle fa-2x"></span><a href="#" class ="fa fa-times pull-right" onclick="confirmNo();" style ="color:#000"></a></div>
+                    <div class="modal-body" style ="height:60%;max-height: 510px;padding:15px;overflow-y: auto">
+                        <div class = "row" style ="padding-bottom: 20px">
+                            <div class ="col-md-12">
+                                <center><p>Delete Item?</p></center>
+                            </div>
+                        </div>
+                        <div class="modal-footer" style ="text-align: center">
+                            <div class ="row">
+                                <div class ="col-md-6">
+                                    <button class ="btn btn-primary helix-btn" id ="Confirm-Yes" onclick="deleteRow();">Yes</button>
+                                </div>
+                                <div class ="col-md-6">
+                                    <button class ="btn btn-primary helix-btn" id ="Confirm-No" onclick ="confirmNo();">No</button>
+                                </div>
+                            </div>
+
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="modal modal-semi-fullscreen fade scrollbar-path-vertical" id="PromptRecorsFound" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style ="position:fixed;top:0;right:3%;left:3%;width:auto;margin:0">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content" id ="modal-content" style ="border-radius: 0px;border-color:#204d74">
+                    <div class ="modal-header"><span class ="fa fa-info-circle fa-2x"></span><a href="#" class ="fa fa-times pull-right" onclick="confirmNo();" style ="color:#000"></a></div>
+                    <div class="modal-body" style ="height:60%;max-height: 510px;padding:15px;overflow-y: auto">
+                        <div class = "row" style ="padding-bottom: 20px">
+                            <div class ="col-md-12">
+                                <center><p id ="message-result">No Records Found!</p></center>
+                            </div>
+                        </div>
+                        <div class="modal-footer" style ="text-align: center">
+                            <div class ="row">
+                                <div class ="col-md-4 col-md-offset-8">
+                                    <button class ="btn btn-primary helix-btn" id ="Yes-prompt" onclick="closePromptRecorsFound();">OK</button>
+                                </div>
+                            </div>
+
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal modal-semi-fullscreen fade scrollbar-path-vertical" id="MsgAlertConfirmScreen" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style ="position:fixed;top:0;right:3%;left:3%;width:auto;margin:0">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content" style ="border-radius: 0px;border-color:#204d74">
+                    <div class ="modal-header"><span class ="fa fa-info-circle fa-2x"></span> Alert! <a href="#" class ="fa fa-times pull-right" onclick="confirmNo();" style ="color:#000"></a></div>
+                    <div class="modal-body" style ="height:60%;max-height: 510px;padding:15px;overflow-y: auto">
+                        <div class = "row" style ="padding-bottom: 20px">
+                            <div class ="col-md-12">
+                                <center><p>Delete Item?</p></center>
+                            </div>
+                        </div>
+                        <div class="modal-footer" style ="text-align: center">
+                            <div class ="row">
+                                <div class ="col-md-6">
+                                    <button class ="btn btn-primary helix-btn" id ="Yes" onclick="">Yes</button>
+                                </div>
+                                <div class ="col-md-6">
+                                    <button class ="btn btn-primary helix-btn" id ="No" onclick ="">No</button>
+                                </div>
+                            </div>
+
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal modal-semi-fullscreen fade scrollbar-path-vertical" id="MsgAlertConfirm" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style ="position:fixed;top:0;right:3%;left:3%;width:auto;margin:0">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content" style ="border-radius: 0px;border-color:#204d74">
+                    <div class ="modal-header"><span class ="fa fa-info-circle fa-2x"></span> Alert! <a href="#" class ="fa fa-times pull-right" onclick="confirmNo();" style ="color:#000"></a></div>
+                    <div class="modal-body" style ="height:60%;max-height: 510px;padding:15px;overflow-y: auto">
+                        <div class = "row" style ="padding-bottom: 20px">
+                            <div class ="col-md-12">
+                                <center><p>Delete Item?</p></center>
+                            </div>
+                        </div>
+                        <div class="modal-footer" style ="text-align: center">
+                            <div class ="row">
+                                <div class ="col-md-6">
+                                    <button class ="btn btn-primary helix-btn" id ="Confirm-Yes" onclick="deleteRow();">Yes</button>
+                                </div>
+                                <div class ="col-md-6">
+                                    <button class ="btn btn-primary helix-btn" id ="Confirm-No" onclick ="confirmNo();">No</button>
+                                </div>
+                            </div>
+
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+        <div class="modal modal-semi-fullscreen fade scrollbar-path-vertical" id="MsgNoRecord" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style ="position:fixed;top:0;right:3%;left:3%;width:auto;margin:0">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content" style ="border-radius: 0px;border-color:#204d74">
+                    <div class ="modal-header"><span class ="fa fa-info-circle fa-2x"></span> Alert! <a href="#" class ="fa fa-times pull-right" onclick="confirmNo();" style ="color:#000"></a></div>
+                    <div class="modal-body" style ="height:60%;max-height: 510px;padding:15px;overflow-y: auto">
+                        <div class = "row" style ="padding-bottom: 20px">
+                            <div class ="col-md-12">
+                                <center><p>No Records found..</p></center>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+
+
+
+
+    <!--
+    <script src="../../js/jquery-1.10.2.min.js" type="text/javascript"></script>
+    <script src="../../js/jquery-ui.js" type="text/javascript"></script>
+    <script src="../../js/bootstrap.min.js" type="text/javascript"></script>
+    -->
+</html>

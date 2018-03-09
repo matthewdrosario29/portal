@@ -1,0 +1,419 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="google-signin-client_id" content="796362944125-hsanqgetffdqucbl0g46l6mjbcbeaib2.apps.googleusercontent.com"/>
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+        <title>Helix Portal</title>
+        <link href="../../css/bootstrap.min.css" media="all" rel="stylesheet" type="text/css" />
+        <link href="../../css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css" />
+        <link href="../../css/jquery-ui.css" media="all" rel="stylesheet" type="text/css" />
+        <script src="../../js/jquery-ui.js" type="text/javascript"></script>
+        <script src="../../js/jquery-1.10.2.min.js" type="text/javascript"></script>
+        <script src="../../js/bootstrap.min.js" type="text/javascript"></script>
+
+        <!-- CUSTOM JS -->
+        <script src ="../../js/portal.js"></script> 
+        <script src ="../../js/functions.js"></script>  
+        <!--Modules.js-->
+        <script src ="./policy.js"></script>
+        <script src ="../udftable/udftable.js"></script>
+        <link href="../../css/mystyle.css" media="all" rel="stylesheet" type="text/css">
+
+    </head>
+    <body onload="policyOnload();">
+        <div class ="container-fluid">
+            <input type="hidden" id ="global-batnbr">
+            <input type="hidden" id ="global-reportid">
+            <input type="hidden" id ="global-moduleid">
+            <br>
+            <ul class="nav nav-tabs" id="policy-tab">
+            </ul>
+            <div class ="tab-content">
+                <div class ="tab-pane" id ="policylist">
+                    <br>
+                    <span  style ="font-family: calibri;font-size: 1.7em;color: #000;font-weight: 100">List of </span><span style ="font-family: calibri;font-size: 1.7em;color: #000;"><b> Transaction</b></span>
+                    <br>
+                    <button type ="button" class ="btn btn-success btn-sm " onclick ="viewReportPanel('FormName', 'policygrid');" style ="margin: 10px 0 0 0"><span class ="fa fa-print">&nbsp;</span> View Available Reports </button>
+                    <div class ="row">
+                        <div class ="col-md-3 col-md-offset-9">
+                            <div class="form-group">
+                                <label>Search</label>
+                                <input type ="text" class ="form-control input-sm"  Placeholder ="By PolicyNo, Name, PolicyDate" id ="Search">
+                                <button class="btn btn-primary helix-btn" onclick ="SearchPolicy();" style ="border-radius: 0px;display:none">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class ="fixed-height" style ="height:225px">
+                        <table class ="table table-bordered table-condensed" id ="table-policy">
+                            <thead>
+                            <th></th>
+                            <th>Name</th>
+                            <th>Policy No</th>
+                            <th>Date</th>
+                            <th>OR No.</th>
+                            <th>Date from</th>
+                            <th>Date to</th>
+                            <th>Vehicle Type</th>
+                            <th></th>
+                            </thead>
+                            <tbody class = "tbody-responsive" id ="table-policy-info"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class ="tab-pane active" id ="policy-basicinfo">
+<!--                    <span  style ="font-family: calibri;font-size: 1.7em;color: #000;font-weight: 100">General</span><span style ="font-family: calibri;font-size: 1.7em;color: #000;"><b> Information</b></span>
+                    --><br>
+                    <div class="row">
+                        <div class ="col-md-12">
+                            <div class ="alert alert-danger" id ="message-info" style ="display: none"></div>
+                        </div>
+                    </div>
+                    <form id ="policy-form-basicinfo" action ="">
+                        <div class ="row">
+                            <div class ="col-md-3">
+                                <div class ="form-group">
+                                    <label>Vehicle Type</label>
+                                    <select type ="text" class ="form-control text-field" Placeholder ="VehicleType" name ="VehicleType" id ="VehicleTypeOption-info"></select>
+                                    <label>Name <span style ="color:red">*</span></label>
+                                    <input type ="text" class ="form-control text-field" name ="Name" id ="Name-info" Placeholder ="Full Name">
+                                    <label>Business / Profession</label>
+                                    <input type ="text" class ="form-control text-field" Placeholder="BusinessType" id ="BusinessType-info" name ="BusinessType">
+                                    <label>Address</label>
+                                    <input type ="text"  class ="form-control text-field" id ="Address-info" placeholder="# Street Address, Brgy, City, ZipCode"name ="Address">
+                                    <label>Email Address</label>
+                                    <input type ="text" class ="form-control text-field" Placeholder="E mail" id ="Email-info" name ="Email">
+                                    <label>Contact No</label>
+                                    <input type ="text" class ="form-control text-field" Placeholder="Contact No" id ="ContactNo-info" name ="ContactNo">
+                                </div>
+                            </div>
+                            <div class ="col-md-8">
+                                <div class ="row">
+                                    <div class ="col-md-3">
+                                        <label>Plate No</label>
+                                        <input type ="text" class ="form-control text-field" Placeholder ="PlateNo" name ="PlateNo" id ="PlateNo-info">
+                                        <label>Model</label>
+                                        <input type ="text" class ="form-control text-field" Placeholder ="Model" name ="Model" id ="Model-info">
+                                        <label>Make</label>
+                                        <input type ="text" class ="form-control text-field" Placeholder ="Make" name ="Make" id ="Make-info">
+                                        <label>Body Type</label>
+                                        <input type ="text" class ="form-control text-field" Placeholder ="BodyType" name ="BodyType" id ="BodyType-info">
+                                        <label>Color</label>
+                                        <input type ="text" class ="form-control text-field" Placeholder ="Color" name ="Color" id ="Color-info">
+                                        <br>
+                                    </div>
+                                    <div class ="col-md-3">
+                                        <label>MVFile No</label>
+                                        <input type ="text" class ="form-control text-field" Placeholder ="MVFileNo" name ="MVFileNo" id ="MVFileNo-info">
+                                        <label>Chassis No</label>
+                                        <input type ="text" class ="form-control text-field " Placeholder ="ChassisNo" name ="ChassisNo" id ="ChassisNo-info">
+                                        <label>Engine Number</label>
+                                        <input type ="text" class ="form-control text-field" Placeholder ="MotorNo" name ="MotorNo" id ="MotorNo-info">
+                                        <label>Capacity</label>
+                                        <input type ="text" class ="form-control text-field" Placeholder ="Capacity" name ="Capacity" id ="Capacity-info">
+                                        <label>Weight</label>
+                                        <input type ="text" class ="form-control text-field" Placeholder ="Weight" name ="Weight" id ="Weight-info">
+                                   </div>
+                                    <div class ="col-md-4">
+                                        <label>Agent Name</label>
+                                        <input type ="hidden" class ="form-control text-field" Placeholder ="BranchID" name ="BranchID" id ="BranchID-info">
+                                        <select type ="text" class ="form-control" name ="AgentID" id ="AgentID-info"></select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class ="row">
+                        <div class ="col-md-4 col-md-offset-5"  style ="display: -webkit-inline-box">
+                            &nbsp;<button class ="btn btn-success btn-sm input-sm" onclick="saveInfoRecord();" id ="SaveRecord-info" style ="display: block"><span class ="fa fa-save"></span> Save Form </button>
+                        &nbsp;<button class ="btn btn-success btn-sm input-sm"  id ="" onclick ="cancel();" style ="display: block"><span class ="fa fa-ban"></span> Cancel </button>
+                        </div>
+                     </div>
+                </div>
+                <div class ="tab-pane" id ="policyform">
+<!--                    <span  style ="font-family: calibri;font-size: 1.7em;color: #000;font-weight: 100"></span><span style ="font-family: calibri;font-size: 1.7em;color: #000;"><b> Cashiering</b></span>
+                    <br><br>-->
+<!--                    <div class ="row">
+                        <div class ="col-md-12" style ="display: -webkit-inline-box">
+                            <button class ="btn btn-success" onclick="saveRecord();" id ="saveRecord" style ="display: block"><span class ="fa fa-save"></span> Save Form </button>
+                            &nbsp;<button class ="btn btn-success" onclick="editRecord();" id ="editRecord" style ="display: none"><span class ="fa fa-pencil-square-o"></span> Edit Form </button>
+                            &nbsp;<button class ="btn btn-success" onclick="deleteRecord();" id ="deleteRecord" style ="display: none"><span class ="fa fa-trash-o"></span> Delete Form </button>
+                            &nbsp;<button class ="btn btn-success" onclick="printformOnwindow();" id ="PrintRecord" style ="display: none"><span class ="fa fa-print"></span> Print Form </button>
+                        </div>
+                    </div>-->
+                    <br>
+                    <div class="row">
+                        <div class ="col-md-12">
+                            <div class ="alert alert-danger" id ="message-form" style ="display: none"></div>
+                        </div>
+                    </div>
+                    
+                    <form id ="policy-form" action ="">
+                        <input type ="hidden" name ="SeqID" id ="SeqID">
+                        <div class ="row">
+                            <div class ="col-md-3">
+                                <div class ="form-group">
+                                    <label>Vehicle Type</label>
+                                <select class ="form-control" name ="VehicleType" id ="VehicleType" onchange ="getInsuranceRates();"></select>
+                                <label>Name <span style ="color:red">*</span></label>
+                                <input type ="text" class ="form-control text-field" name ="Name" id ="Name" Placeholder ="Full Name">
+                                <label>Business / Profession</label>
+                                <input type ="text" class ="form-control text-field" Placeholder="BusinessType" id ="BusinessType" name ="BusinessType">
+                                <label>Address</label>
+                                <input type ="text"  class ="form-control text-field" id ="Address" placeholder="# Street Address, Brgy, City, ZipCode"name ="Address">
+                                <label>Email Address</label>
+                                <input type ="text" class ="form-control" Placeholder="Email" name ="Email" id ="EmailAddress">
+                                <label>Contact No</label>
+                                <input type ="text" class ="form-control" Placeholder="ContactNo" name ="ContactNo" id ="ContactNo">
+                                </div>
+                                
+                            </div>
+                            <div class ="col-md-2" style ="padding-left: 0;padding-right: 0">
+                                <div class ="form-group">
+                                        <label>Plate No</label><span style ="font-size: 6pt;color:red"> (Press enter to load information) </span>
+                                        <input type ="text" class ="form-control" name ="PlateNo" Placeholder="Plate No"id ="PlateNo2">
+                                        <!--<a href="#"  class ="btn btn-success"  style ="margin-top: 5px" onclick ="loadInfo();">Load Info</a><br>-->
+                                        <label>Model</label>
+                                        <input type ="text" class ="form-control text-field" Placeholder ="Model" name ="Model" id ="Model">
+                                        <label>Make</label>
+                                        <input type ="text" class ="form-control text-field" Placeholder ="Make" name ="Make" id ="Make">
+                                        <label>Body Type</label>
+                                        <input type ="text" class ="form-control text-field" Placeholder ="BodyType" name ="BodyType" id ="BodyType">
+                                        <label>Color</label>
+                                        <input type ="text" class ="form-control text-field" Placeholder ="Color" name ="Color" id ="Color">
+                                </div>
+                            </div>
+                            <div class ="col-md-2">
+                                <div class ="form-group">
+                                    <label>MVFile No</label>
+                                    <input type ="text" class ="form-control text-field" Placeholder ="MVFileNo" name ="MVFileNo" id ="MVFileNo">
+                                    <label>Chassis No</label>
+                                    <input type ="text" class ="form-control text-field " Placeholder ="ChassisNo" name ="ChassisNo" id ="ChassisNo">
+                                    <label>Engine Number</label>
+                                    <input type ="text" class ="form-control text-field" Placeholder ="MotorNo" name ="MotorNo" id ="MotorNo">
+                                    <label>Capacity</label>
+                                    <input type ="text" class ="form-control text-field" Placeholder ="Capacity" name ="Capacity" id ="Capacity">
+                                    <label>Weight</label>
+                                    <input type ="text" class ="form-control text-field" Placeholder ="Weight" name ="Weight" id ="Weight">
+                                </div>
+                            </div>
+                            <div class ="col-md-5">
+                                <div class ="row">
+                                    <div style="display:none"class ="col-md-12">
+                                        <label>Branch</label>
+                                        
+                                        <input type ="text" class ="form-control" name ="BranchID" Placeholder="BranchID" id ="BranchID">
+                                    </div>
+                                    <div class ="col-md-6">
+                                        <label>Agent Name</label>
+                                        <select type ="text" class ="form-control" name ="AgentID" id ="AgentID"></select>
+                                    </div>
+                                    <div class ="col-md-6">
+                                        <label>Status</label>
+                                        <select class ="form-control" Placeholder="Status" name ="Status" id ="Status">
+                                            <option value="ACTIVE" selected>ACTIVE</option>
+                                            <option value="CANCELLED">CANCELLED</option>
+                                        </select>
+                                    </div>
+                                    <div class ="col-md-12">
+                                        <label>Insurance Company</label>
+                                        
+                                        <select type ="text" class ="form-control" name ="InsuranceCompany" id ="InsuranceCompany" onchange ="getInsuranceRates();"></select>
+                                    </div>
+                                    <div class ="col-md-6">
+                                        <label>Policy No</label>
+                                        <input type ="text" class ="form-control" name ="PolicyNo" Placeholder="Policy No" id ="PolicyNo" onchange ="checkPolicyRange();" >
+                                    </div>
+                                    <div class ="col-md-6">
+                                        <label>COC No.</label>
+                                        <input type ="text" class ="form-control" Placeholder="COCNumber" name ="COCNumber" id ="COCNumber">
+                                    </div>
+                                </div>
+                                <div class ="row">
+                                    <div class ="col-md-6">
+                                        <label>Date Issued <span style ="color:red">*</span></label>
+                                        <input type ="date" class ="form-control text-field" name ="PolicyDate" id ="PolicyDate">
+                                    </div>
+                                    <div class ="col-md-6">
+                                        <label>Official Receipt No <span style ="color:red">*</span></label>
+                                        <input type ="text" class ="form-control text-field" placeholder ="Official Receipt No."name ="ORNo" id ="ORNo">
+                                    </div>
+                                </div>
+                                <div class ="row">
+                                    <center><span  style ="font-family: calibri;font-size: 1.3em;color: #000;font-weight: 100">PERIOD OF </span><span style ="font-family: calibri;font-size: 1.3em;color: #000;"><b> INSURANCE</b></span></center>
+                                </div>
+                                <div class ="row">
+                                    <div class ="col-md-6">
+                                        <label>Date From <span style ="color:red">*</span></label>
+                                        <input type ="date" class ="form-control text-field" name ="DateFrom" id ="DateFrom">
+                                    </div>
+                                    <div class ="col-md-6">
+                                        <label>Date To <span style ="color:red">*</span></label>
+                                        <input type ="date" class ="form-control text-field" name ="DateTo" id ="DateTo">
+                                    </div>
+                                </div>
+                                <div class ="row">
+                                    <center><span  style ="font-family: calibri;font-size: 1.3em;color: #000;font-weight: 100">Amount </span><span style ="font-family: calibri;font-size: 1.3em;color: #000;"><b> Details  </b></span></center>
+                                </div>
+<!--                                <div class ="col-md-12">
+                                    <span  style ="font-family: calibri;font-size: 1.5em;color: #000;font-weight: 100">Amount </span><span style ="font-family: calibri;font-size: 1.5em;color: #000;"><b> Details</b></span>
+                                <br>-->
+                                <div class ="form-group">
+                                    <div class ="row">
+                                        <div class ="col-md-12">
+                                            <span  style ="font-family: calibri;font-size: 1.5em;color: #000;font-weight: 100">Third Party </span><span style ="font-family: calibri;font-size: 1.5em;color: #000;"><b> Liability</b></span><br>
+                                        </div>
+                                        
+                                        <div class ="col-md-6">
+                                            <label> Limits of Liability</label>
+                                            <input type ="text" class ="form-control number text-field" onchange="computeTotal();" name ="PartyLiabilityAmount" id ="PartyLiabilityAmount" placeholder ="Limits of Liability" value="0">
+                                        </div>
+                                        <div class ="col-md-6">
+                                            <label>Premium Paid</label>
+                                            <input type ="text" class ="form-control number text-field" onchange="computeTotal();" name ="PartyLiabilityPremium" id ="PartyLiabilityPremium" placeholder ="Premium Paid" value="0">
+                                        </div>
+                                    </div>
+                                    <div class ="row">
+                                        
+                                        <div class ="col-md-12">
+                                            <span  style ="font-family: calibri;font-size: 1.5em;color: #000;font-weight: 100">Passenger </span><span style ="font-family: calibri;font-size: 1.5em;color: #000;"><b> Liability</b></span>
+                                            
+                                        </div>
+                                        <div class ="col-md-6">
+                                            <label>Limits of Liability / Person</label>
+                                            <input type ="text" class ="form-control number text-field" onchange="computeTotal();" name ="PassengerLiabilityPerPerson" id ="PassengerLiabilityPerPerson" placeholder ="Limits of Liability / Person" value="0">
+                                        </div>
+                                        <div class ="col-md-6">
+                                            <label>Premium Paid</label>
+                                            <input type ="text" class ="form-control number text-field" onchange="computeTotal();" name ="PassengerLiabilityPremium" id ="PassengerLiabilityPremium" placeholder ="Premium Paid" value="0">
+                                            </div>
+                                    </div>
+                                    <div class ="row">
+                                        <div class ="col-md-6" style ="">
+                                            <label>Limits of Liability / Accident</label>
+                                            <input type ="text" class ="form-control number text-field" onchange="computeTotal();" name ="PassengerLiabilityPerAccident" id ="PassengerLiabilityPerAccident" placeholder ="Limits of Liability / Accident" value="0">
+                                        
+                                            
+                                        </div>
+                                        <div class ="col-md-6">
+                                            <label>Total Amount</label>
+                                            <input type ="text" class ="form-control number text-field" onfocus ="computeTotal();" id ="TotalAmount" placeholder ="Total Amount" name ="TotalAmount" readonly >
+                                
+                                            <a href= "#" class ="btn btn-success form-control" style ="margin-top: 5px"onclick ="opemAmountDetails();">Load Amount Details</a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class ="row">
+                        <div class="col-md-7 col-md-offset-4"style ="display: -webkit-inline-box">
+                            <a  href="#" class ="btn btn-success btn-sm input-sm" onclick="saveRecord();" id ="saveRecord" style ="display: block"><span class ="fa fa-save"></span> Save Form </a>
+                            &nbsp;<a href="#" class ="btn btn-success btn-sm input-sm"  id ="cancelRecord" onclick ="cancel();" style ="display: block;width: 100px"><span class ="fa fa-ban"></span> Cancel </a>
+                            &nbsp;<a href="#" class ="btn btn-success btn-sm input-sm " onclick="editRecord();" id ="editRecord" style ="display: none;width: 100px"><span class ="fa fa-pencil-square-o"></span> Edit Form </a>
+                            &nbsp;<a href="#" class ="btn btn-success btn-sm input-sm " onclick="deleteRecord();" id ="deleteRecord" style ="display: none;width: 100px"><span class ="fa fa-trash-o"></span> Delete Form </a>
+                            &nbsp;<a href="#" class ="btn btn-success btn-sm input-sm " onclick="printformOnwindow();" id ="PrintRecord" style ="display: none;width: 100px"><span class ="fa fa-print"></span> Print Form </a>
+                        </div>
+                    </div>
+                    
+
+                </div>
+                <div class ="tab-pane" id ="dailyremittance">
+                    <br>
+                    <span  style ="font-family: calibri;font-size: 1.7em;color: #000;font-weight: 100">List of </span><span style ="font-family: calibri;font-size: 1.7em;color: #000;"><b> Cash Remittance</b></span>
+                    <br><br>
+                    <input type ="hidden" id ="userid-agent">
+                    <div class ="row">
+                            <div class ="col-md-4"  style ="display: -webkit-inline-box">
+                            <button class ="btn btn-success btn-sm" id ="editGrid" onclick="editGrid();"><span class ="fa fa-edit">&nbsp;</span> Edit Grid</button>
+                            <button class ="btn btn-success btn-sm" id ="saveGrid" onclick="saveGrid();" style ="display: none"><span class ="fa fa-save">&nbsp;</span> Save Grid</button>
+                            &nbsp;<button type ="button" class ="btn btn-success btn-sm " onclick ="viewReportPanel('FormName', 'policygrid');"><span class ="fa fa-print">&nbsp;</span> View Available Reports </button>
+                    </div>
+                    </div>
+                    <br>
+                    <div class ="row">
+                        <br>
+                        <div class ="col-md-12">
+                            <div class ="fixed-height">
+                                <form id ="cashremittance-form" action ="">
+                                    <table class ="table table-bordered table-condensed" id ="table-policy-cashremittance">
+                                        <thead>
+                                            <th>OR No.</th>
+                                            <th>Name</th>
+                                            <th>Particulars</th>
+                                            <th>Amount</th>
+                                            <th>Commision</th>
+                                            <th>Others</th>
+                                        </thead>
+                                        <tbody class ="tbody-responsive"></tbody>
+                                    </table>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id ="includePrompts"></div>
+        <div class="modal modal-semi-fullscreen fade scrollbar-path-vertical" id="AmountDetails" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style ="position:fixed;top:0%;right:3%;left:3%;width:auto;margin:0">
+            <div class="modal-dialog" >
+                <div class="modal-content" style ="border-radius: 0px;border-color:#204d74">
+                    <div class ="modal-header">Amount Details</div>
+                    <div class="modal-body" id ="test" style ="height:60%;max-height: 510px;padding:15px;overflow-y: auto">
+                        <div class ="row">
+                            <div class ="col-md-12">
+                                <div class ="row remove-margin">
+                                    <div class ="col-md-3"><label> Premium Amount</label></div>
+                                    <div class ="col-md-8"><input type ="text" class ="form-control number text-field input-sm" onchange="computeTotal();" placeholder ="Premium Amt Total"  id ="PremiumAmtTotal" name ="" value="0"></div>
+                                </div>
+                                <div class ="row remove-margin">
+                                    <div class ="col-md-3"><label> DocStamp</label></div>
+                                    <div class ="col-md-8"><input type ="text" class ="form-control number text-field input-sm" onchange="computeTotal();" placeholder ="DocStamp"  id ="DocStamp" name ="DocStamp" value="0"></div>
+                                </div>
+                                <div class ="row remove-margin">
+                                    <div class ="col-md-3"><label> VAT Amount</label></div>
+                                    <div class ="col-md-8"><input type ="text" class ="form-control number text-field input-sm" onchange="computeTotal();" placeholder ="VAT Amount"  id ="VATAmount" name ="VATAmount" value="0"></div>
+                                </div>
+                                <div class ="row remove-margin">
+                                    <div class ="col-md-3"><label> Local Govt Tax</label></div>
+                                    <div class ="col-md-8"><input type ="text" class ="form-control number text-field input-sm" onchange="computeTotal();" placeholder ="Tax Amount"  id ="TaxAmount" name ="TaxAmount" value="0"></div>
+                                </div>
+                                <div class ="row remove-margin">
+                                    <div class ="col-md-3"><label> WTax</label></div>
+                                    <div class ="col-md-8"><input type ="text" class ="form-control number text-field input-sm" onchange="computeTotal();" placeholder ="WTAX Amount"  id ="WTax" name ="WTax" value="0"></div>
+                                </div> 
+                                <div class ="row remove-margin">
+                                    <div class ="col-md-3"><label> Discount</label></div>
+                                    <div class ="col-md-8"><input type ="text" class ="form-control number text-field input-sm" onchange="computeTotal();" placeholder ="Discount"  id ="Discount" name ="Discount" value="0"></div>
+                                </div>
+                                <div class ="row remove-margin">
+                                    <div class ="col-md-3"><label>Total Amount</label></div>
+                                    <div class ="col-md-8"><input type ="text" class ="form-control number text-field input-sm" onchange ="copytotal();" placeholder ="Total Amount" id ="TotalAmount-display"></div>
+                                </div>
+<!--                                    <div class ="form-group">
+                                        <div class ="col-md-3"><label class ="number"> Value Added Tax</label></div>
+                                        <div class ="col-md-8"><input type ="text" class ="form-control number text-field input-sm" placeholder ="VAT Amount"  id ="VATAmount" name ="VATAmount"></div>
+                                    </div>-->
+                                <!--<span  style ="font-family: calibri;font-size: 1.5em;color: #000;font-weight: 100">Total </span><span style ="font-family: calibri;font-size: 1.5em;color: #000;"><b> Amount / Deductions</b></span> <br>-->
+                            </div>
+                        </div>
+                        <br>
+                        <div class ="row">
+                            <div class ="col-md-12">
+                                <button id ="ConfirmType" class ="btn btn-success pull-right" data-dismiss="modal" onclick="closeModal();">Close</button>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

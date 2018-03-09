@@ -1,0 +1,314 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="google-signin-client_id" content="796362944125-hsanqgetffdqucbl0g46l6mjbcbeaib2.apps.googleusercontent.com"/>
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+        <title>Helix Portal</title>
+        <link href="../../css/bootstrap.min.css" media="all" rel="stylesheet" type="text/css" />
+        <link href="../../css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css" />
+        <link href="../../css/jquery-ui.css" media="all" rel="stylesheet" type="text/css" />
+        <script src="../../js/jquery-ui.js" type="text/javascript"></script>
+        <script src="../../js/jquery-1.10.2.min.js" type="text/javascript"></script>
+        <script src="../../js/bootstrap.min.js" type="text/javascript"></script>
+
+        <!-- CUSTOM JS -->
+        <script src ="../../js/portal.js"></script> 
+        <script src ="../../js/functions.js"></script>  
+        <!--Modules.js-->
+        <script src ="./issuance.js"></script>
+        <script src ="../udftable/udftable.js"></script>
+        <link href="../../css/mystyle.css" media="all" rel="stylesheet" type="text/css">
+
+    </head>
+    <body onload="vehicleOnload();">
+
+
+        <div class ="container-fluid" style ="padding-bottom: 50px">
+            <br>
+            <ul class="nav nav-tabs" id="issuance-vehicle-tab">
+
+            </ul>
+            <div class="row">
+                <div class ="col-md-12">
+                    <br>
+                    <div class ="alert alert-danger" id ="message" style ="display: none"></div>
+                </div>
+            </div>
+            <div class ="row">
+
+                <div class="col-md-6">
+                    <div class ="form-group" style ="padding-top: 15px">
+                        <span  style ="font-family: calibri;font-size: 1.5em;color: #000;font-weight: 100">COC Registration</span> <span style ="font-family: calibri;font-size: 1.5em;color: #000;" id ="form-caption"> - New</span><span style ="font-family: calibri;font-size: 1.5em;color: #000;" id ="label-tranid"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class ="form-group" style ="padding-top: 15px">
+                        <span  style ="font-family: calibri;font-size: 1.5em;color: #000;font-weight: 100">Payment </span><span style ="font-family: calibri;font-size: 1.5em;color: #000;"><b> Details</b></span>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+
+            <div class ="row">
+                <form id ="issuance-vehicle" action ="">
+                    <div class ="col-md-6">
+
+                        <input type ="hidden" name ="TranID" id ="TranID">
+                        <input type ="hidden" name ="Status" id ="Status" value="NEW">
+
+                        <div class ="form-group" id ="PlateNumber-grp" style ="display:none">
+                            <div class ="row">
+                                <div class ="col-md-3"><label>Plate Number: </label></div>
+                                <div class ="col-md-8"><input type ="text" class ="form-control" placeholder="ABCD123" id ="PlateNumber" name ="PlateNo"></div>
+                            </div>
+                        </div>
+                        <div class ="form-group" id ="ChasisNumber-grp">
+                            <div class ="row">
+                                <div class ="col-md-3"><label>Chasis Number: </label></div>
+                                <div class ="col-md-8"><input type ="text" class ="form-control" placeholder="ABCD123-123456" id ="ChasisNumber" name ="ChasisNumber"></div>
+                            </div>
+                        </div>
+                        <div class ="form-group" id ="EngineNo-grp">
+                            <div class ="row">
+                                <div class ="col-md-3"><label>Engine Number: </label></div>
+                                <div class ="col-md-8"><input type ="text" class ="form-control" placeholder="ABCD123-123456" name ="EngineNumber"></div>
+                            </div>
+                        </div>
+                        <hr>
+                        <span  style ="font-family: calibri;font-size: 1.5em;color: #000;font-weight: 100">Assured </span><span style ="font-family: calibri;font-size: 1.5em;color: #000;"><b> Information</b></span>
+                        <hr>
+                        <div class ="form-group">
+                            <div class ="row">
+                                <div class ="col-md-3"><label>Assured TIN:</label></div>
+                                <div class ="col-md-8"><input type ="text" class ="form-control TIN" maxlength ="15" placeholder="999-999-999-999" id ="TIN" name ="TIN"></div>
+                            </div>
+                        </div>
+                        <div class ="form-group">
+                            <div class ="row">
+                                <div class ="col-md-3"><label>Assured Name: </label></div>
+                                <div class ="col-md-8"><input type ="text" class ="form-control" placeholder="Juan Dela Cruz" name ="CustomerName"></div>
+                            </div>
+                        </div>
+
+                        <div class ="form-group">
+                            <div class ="row">
+                                <div class ="col-md-3"><label>Assured Address: </label></div>
+                                <div class ="col-md-8"><input type ="text" class ="form-control" placeholder="# Street Address, Brgy, City, ZipCode" name ="Address"></div>
+                            </div>
+                        </div>
+
+                        <div class ="form-group">
+                            <div class ="row">
+                                <div class ="col-md-3"><label>Contact No: </label></div>
+                                <div class ="col-md-8"><input type ="number" class ="form-control" placeholder="Numbers Only" name ="MobileNo"></div>
+                            </div>
+                        </div>
+
+                        <div class ="form-group">
+                            <div class ="row">
+                                <div class ="col-md-3"><label>Email Address: </label></div>
+                                <div class ="col-md-8"><input type ="text" class ="form-control" placeholder="juandelacruz@gmail.com" name ="Email"></div>
+                            </div>
+                        </div>
+                        <hr>
+                        <span  style ="font-family: calibri;font-size: 1.5em;color: #000;font-weight: 100">Insurance </span><span style ="font-family: calibri;font-size: 1.5em;color: #000;"><b> Details</b></span>
+                        <hr>
+                        <div class ="form-group">
+                            <div class ="row">
+                                <div class ="col-md-3"><label>OR Number: </label></div>
+                                <div class ="col-md-8"><input type ="text" class ="form-control" placeholder="Numbers, Prefix, Suffix only" name ="ORNumber"></div>
+                            </div>
+                        </div>
+
+                        <div class ="form-group">
+                            <div class ="row">
+                                <div class ="col-md-3"><label>COC Number: </label></div>
+                                <div class ="col-md-8"><input type ="text" class ="form-control" placeholder="Numbers, Prefix, Suffix only" name ="COCNumber"></div>
+                            </div>
+                        </div>
+
+                        <div class ="form-group">
+                            <div class ="row">
+                                <div class ="col-md-3"><label>Policy Number: </label></div>
+                                <div class ="col-md-8"><input type ="text" class ="form-control" placeholder="Numbers, Prefix, Suffix only" name ="PolicyNumber"></div>
+                            </div>
+                        </div>
+
+                        <div class ="form-group">
+                            <div class ="row">
+                                <div class ="col-md-3"><label>Inception Date From: </label></div>
+                                <div class ="col-md-8"><input type ="date" class ="form-control" placeholder="" name ="InceptionDateFrom"></div>
+                            </div>
+                        </div>
+
+                        <div class ="form-group">
+                            <div class ="row">
+                                <div class ="col-md-3"><label>Inception Date To: </label></div>
+                                <div class ="col-md-8"><input type ="date" class ="form-control" placeholder="" name ="InceptionDateTo"></div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class ="form-group" id ="MVFileNoGrp" style ="display:none">
+                            <div class ="row">
+                                <div class ="col-md-3"><label>MV File Number:</label></div>
+                                <div class ="col-md-8"><input type ="number" class ="form-control" placeholder="Numbers Only" name ="MVFileNo"></div>
+                            </div>
+                        </div>
+                        <div class ="form-group">
+                            <div class ="row">
+                                <div class ="col-md-3"><label>Type of Vehicle</label></div>
+                                <div class ="col-md-8"><input type ="text" class ="form-control" placeholder="" name ="VehicleType"></div>
+                            </div>
+                        </div>
+
+                        <div class ="form-group">
+                            <div class ="row">
+                                <div class ="col-md-3"><label>LTO MV Type</label></div>
+                                <div class ="col-md-8"><input type ="text" class ="form-control" placeholder="" name ="LTOMVType"></div>
+                            </div>
+                        </div>
+
+                        <div class ="form-group" style ="display:none">
+                            <div class ="row">
+                                <div class ="col-md-3"><label>Trailer</label></div>
+                                <div class ="col-md-8"><input type ="text" class ="form-control" placeholder="" name ="Trailer" id ="Trailer"></div>
+                            </div>
+                        </div>
+
+                        <hr>
+                        <span  style ="font-family: calibri;font-size: 1.5em;color: #000;font-weight: 100">Vehicle </span><span style ="font-family: calibri;font-size: 1.5em;color: #000;"><b> Details</b></span>
+                        <hr>
+                        <div class ="form-group">
+                            <div class ="row">
+                                <div class ="col-md-3"><label>Make</label></div>
+                                <div class ="col-md-8"><input type ="text" class ="form-control" placeholder="" name ="Make"></div>
+                            </div>
+                        </div>
+                        <div class ="form-group">
+                            <div class ="row">
+                                <div class ="col-md-3"><label>Model</label></div>
+                                <div class ="col-md-8"><input type ="text" class ="form-control" placeholder="" name ="Model"></div>
+                            </div>
+                        </div>
+                        <div class ="form-group">
+                            <div class ="row">
+                                <div class ="col-md-3"><label>BodyType</label></div>
+                                <div class ="col-md-8"><input type ="text" class ="form-control" placeholder="" name ="BodyType"></div>
+                            </div>
+                        </div>
+                        <div class ="form-group">
+                            <div class ="row">
+                                <div class ="col-md-3"><label>Color</label></div>
+                                <div class ="col-md-8"><input type ="text" class ="form-control" placeholder="" name ="Color"></div>
+                            </div>
+                        </div>
+                        <div class ="form-group">
+                            <div class ="row">
+                                <div class ="col-md-3"><label>BLTFileNo</label></div>
+                                <div class ="col-md-8"><input type ="text" class ="form-control" placeholder="" name ="BLTFileNo"></div>
+                            </div>
+                        </div>
+                        <div class ="form-group">
+                            <div class ="row">
+                                <div class ="col-md-3"><label>Weight</label></div>
+                                <div class ="col-md-8"><input type ="text" class ="form-control" placeholder="" name ="Weight"></div>
+                            </div>
+                        </div>
+
+                        <div class ="form-group">
+                            <div class ="row">
+                                <div class ="col-md-3"><label>Capacity</label></div>
+                                <div class ="col-md-8"><input type ="text" class ="form-control" placeholder="" name ="Capacity"></div>
+                            </div>
+                        </div>
+                        <div class ="form-group">
+                            <div class ="row">
+                                <div class ="col-md-3"><label>Business</label></div>
+                                <div class ="col-md-8"><input type ="text" class ="form-control number" placeholder="" name ="Business"></div>
+                            </div>
+                        </div>
+                        <hr>
+
+                        <!--                    <div class ="alert alert-warning">
+                                                <span style ="font-family: calibri;font-size: 1.2em;color: #000;font-weight: 100"><strong>PLEASE</strong> Always check all the details before submitting.</span>
+                                            </div>-->
+
+
+                    </div>
+
+                    <div class ="col-md-6">
+                        <div class ="form-group">
+                            <div class ="row">
+                                <div class ="col-md-3"><label>DSAmt</label></div>
+                                <div class ="col-md-6"><input type ="text" class ="form-control number" placeholder="" name ="DSAmt"></div>
+                            </div>
+                        </div>
+                        <div class ="form-group">
+                            <div class ="row">
+                                <div class ="col-md-3"><label>FSTAmt</label></div>
+                                <div class ="col-md-6"><input type ="text" class ="form-control number" placeholder="" name ="FSTAmt"></div>
+                            </div>
+                        </div>
+                        <div class ="form-group">
+                            <div class ="row">
+                                <div class ="col-md-3"><label>LGTAmt</label></div>
+                                <div class ="col-md-6"><input type ="text" class ="form-control number" placeholder="" name ="LGTAmt"></div>
+                            </div>
+                        </div>
+                        <div class ="form-group">
+                            <div class ="row">
+                                <div class ="col-md-3"><label>OtherAmt</label></div>
+                                <div class ="col-md-6"><input type ="text" class ="form-control number" placeholder="" name ="OtherAmt"></div>
+                            </div>
+                        </div>
+                        <div class ="form-group">
+                            <div class ="row">
+                                <div class ="col-md-3"><label>TotalAmt</label></div>
+                                <div class ="col-md-6"><input type ="text" class ="form-control number" placeholder="" name ="TotalAmt"></div>
+                            </div>
+                        </div>
+                        <div class ="form-group">
+                            <div class ="row">
+                                <div class ="col-md-3"><label>TaxableAmt</label></div>
+                                <div class ="col-md-6"><input type ="text" class ="form-control number" placeholder="" name ="TaxableAmt"></div>
+                            </div>
+                        </div>
+                        <div class ="form-group">
+                            <div class ="row">
+                                <div class ="col-md-3"><label>TaxAmt</label></div>
+                                <div class ="col-md-6"><input type ="text" class ="form-control number" placeholder="" name ="TaxAmt"></div>
+                            </div>
+                        </div>
+                        <div class ="form-group">
+                            <div class ="row">
+                                <div class ="col-md-3"><label>VatType</label></div>
+                                <div class ="col-md-6"><input type ="text" class ="form-control" placeholder="" name ="VatType"></div>
+                            </div>
+                        </div>
+                        <div class ="form-group">
+                            <div class ="row">
+                                <div class ="col-md-3"><label>PaymentType</label></div>
+                                <div class ="col-md-6"><input type ="text" class ="form-control" placeholder="" name ="PaymentType"></div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class ="row">
+                <div class ="col-md-3">
+                    <span>
+                        <a href="#" class ="btn btn-success" onclick ="saveRecord();">Submit</a>
+                        <button class ="btn btn-inverse" onclick ="">Cancel</button>
+                    </span>
+                </div>
+            </div>
+
+        </div>
+        <div id ="includePrompts"></div>
+    </body>
+</html>

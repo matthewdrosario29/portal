@@ -1,0 +1,344 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="google-signin-client_id" content="796362944125-hsanqgetffdqucbl0g46l6mjbcbeaib2.apps.googleusercontent.com"/>
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+        <title>Helix Portal</title>
+        <link href="../../css/bootstrap.min.css" media="all" rel="stylesheet" type="text/css" />
+        <link href="../../css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css" />
+        <link href="../../css/jquery-ui.css" media="all" rel="stylesheet" type="text/css" />
+        <script src="../../js/jquery-ui.js" type="text/javascript"></script>
+        <script src="../../js/jquery-1.10.2.min.js" type="text/javascript"></script>
+        <script src="../../js/bootstrap.min.js" type="text/javascript"></script>
+
+        <!-- CUSTOM JS -->
+        <script src ="../../js/portal.js"></script> 
+        <script src ="../../js/functions.js"></script>  
+        <!--Modules.js-->
+        <script src ="./customer.js"></script>
+        <link href="../../css/mystyle.css" media="all" rel="stylesheet" type="text/css">
+
+    </head>
+    <body onload="customerOnload();">
+        <div class ="container-fluid">
+            <input type="hidden" id ="global-batnbr">
+            <input type="hidden" id ="global-reportid">
+            <input type="hidden" id ="global-moduleid">
+            <div class="row">
+                <div class="col-sm-12">
+                    <ul class="nav nav-tabs" id="customerTab">
+                        
+                    </ul>
+                    
+                    <div class="tab-content">
+                        <div class ="tab-pane active" id ="customer">
+                            <div class ="row">
+                                <br>
+                                <div class ="col-md-12">
+                                    <button type ="button" class ="btn btn-primary helix-btn btn-sm " style ="padding: 5px 15px 5px 15px;" onclick ="AddCustomer();"><span class ="fa fa-user">+&nbsp;</span> Add Customer </button>
+                                    <button type ="button" class ="btn btn-primary helix-btn btn-sm " style ="padding: 5px 15px 5px 15px;" onclick ="viewReportPanel('FormName', 'customersgrid');"><span class ="fa fa-print">&nbsp;</span> Reports </button>
+                                    <h1 class ="" style ="font-size:1.7em;font-family: calibri;font-weight: 100">List of Customer</h1>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Search</label>
+                                                <input type ="text" class ="form-control input-sm"  Placeholder ="Press Enter to search.." id ="Search">
+                                                <button class="btn btn-primary helix-btn" onclick ="SearchMember();" style ="border-radius: 0px;display:none">
+                                                    <i class="fa fa-search"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class ="fixed-height">
+                                        <table class="table  table-condensed table-striped table-hover" id ="CustomerList">
+                                            <thead>
+                                                <tr>
+                                                    <th></th>
+                                                    <th>#</th>
+                                                    <th>Account ID</th>
+                                                    <th>Customer Name</th>
+                                                    <th>Last Name</th>
+                                                    <th>First Name</th>
+                                                    <th>Middle Name</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class = "tbody-responsive" id ="customer-infos">
+                                            </tbody> 
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class ="tab-pane" id ="customerupload">
+                            <br>
+                            
+                        </div>
+                        
+                        <div class ="tab-pane" id="add-customer" style ="padding-bottom: 50px">
+                            <div class ="container-fluid" style ="padding:0px 40px 0px 40px">
+                                <button class = "btn btn-primary helix-btn" id ="saveRecord" onclick ="saveRecord();" style ="display:none;margin:20px 0 10px 0">Save</button>
+                                <hr>
+                                <p style ="font-size:1.7em;font-family: calibri;font-weight: 100">Change Customer Data</p>
+                                <br>
+                                <form id ="customer-form" action ="">
+                                    <input type ="hidden" class ="form-control input-sm" id ="SeqID" name ="SeqID">
+                                    
+                                    <div class ="row" id ="alert-div" style ="display:block">
+                                        <div class="col-md-9">
+                                            <div class ="alert alert-info" id="msgbox">
+                                                <strong><span class="fa fa-info-circle"></span></strong><p id ="message"> Note : Field with <span style ="color:red">( * )</span> are required field please fill up the necessary information to complete the form</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            
+                                        </div>
+                                    </div>
+                                    <div class ="row">
+                                    <div class ="col-md-3">
+                                        <label>Customer ID</label>
+                                        <input type ="text" class ="form-control input-sm" id ="CustomerID" name ="CustomerID" disabled>
+                                    </div>
+                                    <div class ="col-md-3">
+                                        <label>Customer Name</label>
+                                        <input type ="text" class ="form-control input-sm" id ="CustomerName" name ="CustomerName" disabled>
+                                    </div>
+                                    <div class ="col-md-3">
+                                        <label>Telephone No.</label>
+                                        <input type ="text" class ="form-control input-sm" id ="TelNo" name ="TelNo" disabled>
+                                    </div>
+                                     <div class ="col-md-3">
+                                        <label>Email Address</label>
+                                        <input type ="text" class ="form-control input-sm" id ="Email" name ="Email" disabled>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class ="row">
+                                    <div class ="col-md-6">
+                                        <div class="form-group">
+                                            <label>Account ID</label>
+                                            <input type ="text" class ="form-control input-sm" id ="AccountID" name ="AccountID" disabled>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Password</label>
+                                            <input type ="text" class ="form-control input-sm" id ="" name ="Password" disabled>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Registration Date</label>
+                                            <input type ="date" class ="form-control input-sm" id ="RegistrationDate" name ="RegistrationDate" disabled>
+                                        </div>
+                                         <div class="form-group">
+                                            <label>Currency</label><BR>
+                                            <div class ="row">
+                                                <div class ="col-md-3">
+                                                    <label><input type ="radio" class ="" name ="CurCode" value ="USD"> USD </label>
+                                                </div>
+                                                <div class ="col-md-3">
+                                                    <label><input type ="radio" class ="" name ="CurCode" value ="EUR"> EUR </label>
+                                                </div>
+                                                <div class ="col-md-3">
+                                                    <label><input type ="radio" class ="" name ="CurCode" value ="JPY"> JPY </label>
+                                                </div>
+                                                <div class ="col-md-3">
+                                                    <label><input type ="radio" class ="" name ="CurCode" value ="GBP"> GBP </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class ="form-group">
+                                            <label>First Name</label>
+                                            <input type ="text" class ="form-control input-sm" id ="FirstName" name ="FirstName" disabled>
+                                        </div>
+                                        <div class ="form-group">
+                                            <label>Middle Name</label>
+                                            <input type ="text" class ="form-control input-sm" id ="MiddleName" name ="MiddleName" disabled>
+                                        </div>
+                                        <div class ="form-group">
+                                            <label>Middle Name</label>
+                                            <input type ="text" class ="form-control input-sm" id ="LastName" name ="LastName" disabled>
+                                        </div>
+                                        <div class ="form-group">
+                                            <label>Date of Birth</label>
+                                            <input type ="date" class ="form-control input-sm" id ="BirthDate" name ="BirthDate" disabled>
+                                        </div>
+                                        <div class ="form-group">
+                                            <label>Nationality</label>
+                                            <input type ="text" class ="form-control input-sm" id ="Nationality" name ="Nationality" disabled>
+                                        </div>
+                                        <div class ="form-group">
+                                            <label>Address</label>
+                                            <input type ="text" class ="form-control input-sm" id ="Address" name ="Address" disabled>
+                                        </div>
+                                        <div class ="form-group">
+                                            <label>Postcode</label>
+                                            <input type ="text" class ="form-control input-sm" id ="Postcode" name ="PostCode" disabled>
+                                        </div>
+                                        <div class ="form-group">
+                                            <label>Country</label>
+                                            <input type ="text" class ="form-control input-sm" id ="Country" name ="Country" disabled>
+                                        </div>
+                                        <div class ="form-group">
+                                            <label>Gender</label>
+                                            <input type ="text" class ="form-control input-sm" id ="Gender" name ="Gender" disabled>
+                                        </div>
+                                        <div class ="form-group">
+                                            <label>Phone</label>
+                                            <input type ="text" class ="form-control input-sm" id ="Phone" name ="Phone" disabled>
+                                        </div>
+                                        <div class ="form-group">
+                                            <label>Mobile Phone</label>
+                                            <input type ="text" class ="form-control input-sm" id ="MobileNo" name ="MobileNo" disabled>
+                                        </div>
+                                        <div class ="form-group">
+                                            <label>Email Sub</label>
+                                            <input type ="text" class ="form-control input-sm" id ="EmailSub" name ="EmailSub" disabled>
+                                        </div>
+                                        <div class ="form-group">
+                                            <center><label>Note</label></center>
+                                            <textarea class="form-control" rows="3" Placeholder ="Note" name ="FurtherInstruction" id="FurtherInstruction" disabled></textarea>
+                                        </div>
+                                    </div>
+                                    <div class ="col-md-6">
+                                        <div class ="form-group">
+                                            <label>Member Status</label>
+                                            <input type ="text" class ="form-control input-sm" id ="MemberStatus" name ="MemberStatus" disabled>
+                                            <label>Bank Name</label>
+                                            <input type ="text" class ="form-control input-sm" id ="BankName" name ="BankName" disabled>
+                                            <label>Swift Code</label>
+                                            <input type ="text" class ="form-control input-sm" id ="SwiftCode" name ="SwiftCode" disabled> 
+                                            <label>Branch Name</label>
+                                            <input type ="text" class ="form-control input-sm" id ="BranchName" name ="BranchCode" disabled>
+                                            <label>Bank Address</label>
+                                            <input type ="text" class ="form-control input-sm" id ="BankAddress" name ="BankAddress" disabled>
+                                            <label>Bank Account Name</label>
+                                            <input type ="text" class ="form-control input-sm" id ="BankAccountName" name ="BankAccountName" disabled>
+                                            <label>Further Instruction</label>
+                                            <input type ="text" class ="form-control input-sm" id ="FurtherInstruction" name ="FurtherInstruction" disabled>
+                                            <center><label>Update History</label></center>
+                                            <textarea class="form-control" rows="4" Placeholder ="Update History" name ="UpdateHistory" id="UpdateHistory" disabled></textarea>
+                                            <div class ="row">
+                                                <div class ="col-md-4 col-md-offset-8">
+                                                    <a href="#" class ="btn btn-primary helix-btn btn-sm" id ="customeredit" onclick ="editData();" style ="border-radius: 0px;margin: 10px 15px 10px 0px">Change customer Data</a>
+                                                </div>
+                                            </div>
+                                            
+                                            <center><label>Deposit / Withdrawal history</label></center>
+                                            <ul class="nav nav-tabs">
+                                                <li class ="active" style ="font-size: .9em">
+                                                    <a href="#deposits" data-toggle="tab">
+                                                        <span class ="tab-name">Deposits</span>
+                                                    </a>
+                                                </li>
+                                                <li style ="font-size: .9em">
+                                                    <a href="#withdrawals" data-toggle="tab">
+                                                        <span class ="tab-name">Withdrawals</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                            <div class="tab-content">
+                                                <div class ="tab-pane active" id="deposits">
+                                                        <table class ="table table-bordered table-condensed" id ="dwhistory">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Date</th>
+                                                                    <th style ="text-align:right">Amount</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody></tbody>
+                                                        </table>
+                                                </div>
+                                                <div class ="tab-pane" id="withdrawals">
+                                                    asdads
+                                                </div>
+                                            </div>
+                                            <div class ="row">
+                                                <div class ="col-md-4 col-md-offset-8">
+                                                    <a href="#" class ="btn btn-primary helix-btn btn-sm" id ="" onclick ="" style ="border-radius: 0px;margin: 10px 15px 10px 0px">Deposit / Withdrawal</a>
+                                                </div>
+                                            </div>
+                                            
+                                            
+                                        </div>
+                                        
+                                        
+                                    </div>
+                                </div>
+                                </form>
+                                
+                                <p style ="font-size:1.5em;font-family: calibri;font-weight: 100">Deposit / Withdrawal report</p>
+                                <div class ="row">
+                                    <div class ="col-md-3 col-md-offset-9">
+                                        <div class ="form-group">
+                                        <label>Account Balance</label>
+                                        <input type ="text" class ="form-control input-sm" name ="AccountBalance">
+                                    </div>
+                                    
+                                </div>
+                                </div>
+                                
+                                <div class="table-responsive-vertical shadow-z-1" style ="overflow-x:auto;">
+                                            <table class ="table table-condensed table-responsive" id ="deposit-withdrawal">
+                                                <thead>
+                                                <!--<th></th>-->
+                                                <th>Date</th>
+                                                <th>Realised P&L</th>
+                                                <th>Transaction Fees</th>
+                                                <th>Rollover</th>
+                                                <th>Type</th>
+                                                <th>Amount</th>
+                                                <th>Description</th>
+                                                <th>Account Balance</th>
+                                                </thead>
+                                                <tbody id ="deposit-withdrawal-edit">
+<!--                                                    <tr>
+                                                        <td style="width:5%"></td>
+                                                        <td data-title = "Date"><input type ="text" class ="form-control input-sm" Placeholder="TranDate" name="TranDate" id="TranDate"></td>
+                                                        <td data-title = "Realised P&L"><input type ="text" class ="form-control input-sm" Placeholder="Realised P&L" name="RealisedPL" id="RealisedPL"></td>
+                                                        <td data-title = "Transaction Fees"><input type ="text" class ="form-control input-sm" Placeholder="Transaction Fees" name="TransactionFees" id="TransactionFees"></td>
+                                                        <td data-title = "Rollover"><input type ="text" class ="form-control input-sm" Placeholder="Rollover" name="Rollover" id="Rollover"></td>
+                                                        <td data-title = "Type"><input type ="text" class ="form-control input-sm" Placeholder="Type" name="Type" id="Type"></td>
+                                                        <td data-title = "Amount"><input type ="text" class ="form-control input-sm" Placeholder="Amount" name="Amount" id="Amount"></td>
+                                                        <td data-title = "Description"><input type ="text" class ="form-control input-sm" Placeholder="Description" name="Description" id="Description"></td>
+                                                        <td data-title = "Account Balance"><input type ="text" class ="form-control input-sm" Placeholder="Account Balance" name="AccountBalance" id="Account Balance"></td>
+                                                        <td data-title = "ContactNo"><input type ="hidden" class ="form-control input-sm" Placeholder="ContactNo" name="SeqID" id="MemberBenificiary_SeqID"></td>
+                                                    </tr>-->
+                                                </tbody>
+                                                
+                                            </table>
+                                        </div>
+                                <div class="material-button-anim auto-left" id ="customer-toolbar" style ="left : 90%">
+
+                                    <ul class="list-inline" id="options">
+                                        <li class="option">
+                                            <button class="material-button option2" onclick="deleteRecord();" type="button">
+                                                <span class="fa fa-trash-o" aria-hidden="true"></span>
+                                            </button>
+                                        </li>
+                                        <li class="option">
+                                            <button class="material-button option3" onclick="PrintForm();" type="button">
+                                                <span class="fa fa-print" aria-hidden="true"></span>
+                                            </button>
+                                        </li>
+
+
+                                    </ul>
+                                    <button class="material-button material-button-toggle" type="button">
+                                        <span class="fa fa-plus" aria-hidden="true"></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            
+            
+            <div id ="includePrompts"></div>
+        </div>
+    </body>
+</html>

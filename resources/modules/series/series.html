@@ -1,0 +1,216 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="google-signin-client_id" content="796362944125-hsanqgetffdqucbl0g46l6mjbcbeaib2.apps.googleusercontent.com"/>
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+        <title>Helix Portal</title>
+        <link href="../../css/bootstrap.min.css" media="all" rel="stylesheet" type="text/css" />
+        <link href="../../css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css" />
+        <link href="../../css/jquery-ui.css" media="all" rel="stylesheet" type="text/css" />
+        <script src="../../js/jquery-ui.js" type="text/javascript"></script>
+        <script src="../../js/jquery-1.10.2.min.js" type="text/javascript"></script>
+        <script src="../../js/bootstrap.min.js" type="text/javascript"></script>
+
+        <!-- CUSTOM JS -->
+        <script src ="../../js/portal.js"></script> 
+        <script src ="../../js/functions.js"></script>  
+        <!--Modules.js-->
+        <script src ="./series.js"></script>
+        <script src ="../udftable/udftable.js"></script>
+        <link href="../../css/mystyle.css" media="all" rel="stylesheet" type="text/css">
+
+    </head>
+    <body onload ="seriesOnload();">
+        <div class ="container-fluid">
+            <input type="hidden" id ="global-batnbr">
+            <input type="hidden" id ="global-reportid">
+            <input type="hidden" id ="global-moduleid">
+            <br>
+            <ul class="nav nav-tabs" id="series-tab">
+            </ul>
+            <div class ="tab-content">
+                <div class ="tab-pane active" id ="serieslist">
+                    <br>
+                    <span  style ="font-family: calibri;font-size: 1.5em;color: #000;font-weight: 100">Series </span><span style ="font-family: calibri;font-size: 1.5em;color: #000;"><b> List</b></span> <br>
+                    <button type ="button" class ="btn btn-success btn-sm " onclick ="viewReportPanel('FormName', 'seriesgrid');" style ="margin: 10px 0 0 0"><span class ="fa fa-print">&nbsp;</span> View Available Reports </button>
+                    <hr>
+                    
+                    <div class ="fixed-height" style ="height:225px">
+                        <table class ="table table-bordered table-condensed" id ="table-series">
+                            <thead>
+                                <th></th>
+                                <th>Issurance Company</th>
+                                <th>Series Ref</th>
+                                <th>Start Series</th>
+                                <th>End Series</th>
+                                <th>Purchase Date</th>
+                                <th></th>
+                            </thead>
+                            <tbody class ="tbody-responsive"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class ="tab-pane" id ="seriesform">
+                    <br>
+                    <div class="row">
+                        <div class ="col-md-12">
+                            <div class ="alert alert-danger" id ="message-form" style ="display: none"></div>
+                        </div>
+                    </div>
+                    <span  style ="font-family: calibri;font-size: 1.5em;color: #000;font-weight: 100">Series </span><span style ="font-family: calibri;font-size: 1.5em;color: #000;"><b> Form</b></span> <br>
+                    <br>
+                    <div class ="row">
+                        <form id ="series-form" action="">
+                            <div class ="col-md-6">
+                                <div class ="row">
+                                    <div class ="col-md-6">
+                                        <label>Series Type</label>
+                                        <select class ="form-control" name ="SeriesType" name ="SeriesType">
+                                            <option value ="Insurance">Insurance</option>
+                                            <option value ="Medical">Medical</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class ="row">
+                                    <div class ="col-md-12">
+                                        <div class ="form-group">
+                                            <label>Insurance Company</label>
+                                            <select type ="text" class ="form-control" id ="ICompanyID" name ="ICompanyID"></select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class ="row">
+                                    <div class ="col-md-4">
+                                        <label>Series Ref</label>
+                                        <input type ="text" class ="form-control" id ="SeriesRef" name ="SeriesRef">
+                                    </div>
+                                    <div class ="col-md-4">
+                                        <label>Start Series</label>
+                                        <input type ="text" class ="form-control" id ="StartSeries" name ="StartSeries">
+                                    </div>
+                                    <!--                                    <div class ="col-md-1"><span>-</span></div>-->
+                                    <div class ="col-md-4">
+                                        <label>End Series</label>
+                                        <input type ="text" class ="form-control" id ="EndSeries" name ="EndSeries">
+                                    </div>
+                                </div>
+                                <div class ="row">
+                                    <div class ="col-md-8">
+                                        <label>Purchase Date</label>
+                                        <input type ="date" class ="form-control" id ="PurchaseDate" name ="PurchaseDate">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <br>
+                    <div class ="row" style ="">
+                        <div class ="col-md-12">
+                            <div class ="form-group">
+                                <a href="#" class ="btn btn-success" id ="SaveRecord" onclick ="saveSeriesRecord();"><span class ="fa fa-save"></span> Submit </a>
+                                <a href="#" class ="btn btn-success" id ="CancelRecord" onclick ="cancel();"><span class ="fa fa-ban"></span> Cancel </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class ="tab-pane" id ="seriesissuancelist">
+                    <br>
+                    <span  style ="font-family: calibri;font-size: 1.5em;color: #000;font-weight: 100">Series Issuance </span><span style ="font-family: calibri;font-size: 1.5em;color: #000;"><b> List</b></span> <br>
+                    <button type ="button" class ="btn btn-success btn-sm " onclick ="viewReportPanel('FormName', 'seriesissuancegrid');" style ="margin: 10px 0 0 0"><span class ="fa fa-print">&nbsp;</span> View Available Reports </button>
+                    <hr>
+                    
+                    <div class ="fixed-height" style ="height:225px">
+                        <table class ="table table-bordered table-condensed" id ="table-seriesissuance">
+                            <thead>
+                                <th></th>
+                                
+                                <th>Agent Name</th>
+                                <th>Issued Date</th>
+                                <th>Start Series</th>
+                                <th>End Series</th>
+                                <th>Sold Count</th>
+                                <th>Cancelled Count</th>
+                                <th>Available Count</th>
+                                <th></th>
+                            </thead>
+                            <tbody class ="tbody-responsive" id =""></tbody>
+                        </table>
+                    </div>
+                    
+                    
+                </div>
+                <div class ="tab-pane" id ="seriesissuanceform">
+                    <br>
+                    <span  style ="font-family: calibri;font-size: 1.5em;color: #000;font-weight: 100">Series Issuance </span><span style ="font-family: calibri;font-size: 1.5em;color: #000;"><b> Form</b></span> <br>
+                    <br>
+                    <div class ="row">
+                        <form id ="seriesissuance-form" action="">
+                            <div class ="col-md-7">
+
+                                <div class ="row">
+                                    <div class ="col-md-6">
+                                        <label>Insurance Company</label>
+                                        <select type ="text" class ="form-control" id ="ICompanyID-issuance" name ="ICompanyID"></select>
+                                    </div>
+                                    <div class ="col-md-6">
+                                        <label>Agent Name</label>
+                                        <select type ="text" class ="form-control" id ="AgentID" name ="AgentID"></select>
+                                    </div>
+                                </div>
+                                <div class ="row">
+                                    <div class ="col-md-6">
+                                        <label>Issued Date</label>
+                                        <input type ="date" class ="form-control" id ="IssuedDate" name ="IssuedDate">
+                                    </div>
+                                </div>
+                                <div class ="row">
+                                    <div class ="col-md-4">
+                                        <label>Series Ref</label>
+                                        <select type ="text" class ="form-control" id ="SeriesRef-issuance" name ="SeriesRef"></select>
+                                    </div>
+                                    <div class ="col-md-4">
+                                        <label>Start Series</label>
+                                        <input type ="text" class ="form-control" id ="StartSeries" name ="StartSeries">
+                                    </div>
+                                    <div class ="col-md-4">
+                                        <label>End Series</label>
+                                        <input type ="text" class ="form-control" id ="EndSeries" name ="EndSeries">
+                                    </div>
+                                </div>
+                                <div class ="row">
+                                    <div class ="col-md-4">
+                                        <label>Sold Count</label>
+                                        <input type ="text" class ="form-control" id ="SoldCount" name ="SoldCount">
+                                    </div>
+                                    <div class ="col-md-4">
+                                        <label>Cancelled Count</label>
+                                        <input type ="text" class ="form-control" id ="CancelledCount" name ="CancelledCount">
+                                    </div>
+                                    <div class ="col-md-4">
+                                        <label>Available Count</label>
+                                        <input type ="text" class ="form-control" id ="AvailableCount" name ="AvailableCount">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <br>
+                    <div class ="row" style ="">
+                            <div class ="col-md-12">
+                                <div class ="form-group">
+                                    <a href="#" class ="btn btn-success" onclick ="saveIssuanceRecord();"><span class ="fa fa-save"></span> Submit</a>
+                                    <a href="#" class ="btn btn-success" id ="CancelRecord" onclick ="cancel();"><span class ="fa fa-ban"></span> Cancel </a>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+
+            </div>
+            <div id ="includePrompts"></div>
+    </body>
+</html>

@@ -1,0 +1,186 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="google-signin-client_id" content="796362944125-hsanqgetffdqucbl0g46l6mjbcbeaib2.apps.googleusercontent.com"/>
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+        <title>Helix Portal</title>
+        <link href="../../css/bootstrap.min.css" media="all" rel="stylesheet" type="text/css" />
+        <link href="../../css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css" />
+        <link href="../../css/jquery-ui.css" media="all" rel="stylesheet" type="text/css" />
+        <script src="../../js/jquery-ui.js" type="text/javascript"></script>
+        <script src="../../js/jquery-1.10.2.min.js" type="text/javascript"></script>
+        <script src="../../js/bootstrap.min.js" type="text/javascript"></script>
+
+        <!-- CUSTOM JS -->
+        <script src ="../../js/portal.js"></script> 
+        <script src ="../../js/functions.js"></script>  
+        <!--Modules.js-->
+        <script src ="./deposit.js"></script>
+        <link href="../../css/mystyle.css" media="all" rel="stylesheet" type="text/css">
+
+    </head>
+    <body onload="depositOnload();">
+        <div class="container-fluid">
+            <input type="hidden" id ="global-batnbr">
+            <input type="hidden" id ="global-reportid">
+            <input type="hidden" id ="global-moduleid">
+            
+            <div class="row">
+                <div class="col-sm-12">
+                    <ul class="nav nav-tabs" id="depositTab">
+
+                    </ul>
+
+                    <div class="tab-content">
+                        <div class ="tab-pane active" id ="deposit">
+                            <div class ="row">
+                                <br>
+                                <div class ="col-md-12">
+                                    <button type ="button" class ="btn btn-primary helix-btn btn-sm " style ="padding: 5px 15px 5px 15px;" onclick ="DepositAmount();"><span class ="fa fa-credit-card">&nbsp;</span> Deposit Amount </button>
+                                    <button type ="button" class ="btn btn-primary helix-btn btn-sm " style ="padding: 5px 15px 5px 15px;" onclick ="viewReportPanel('FormName', 'depositgrid');"><span class ="fa fa-print">&nbsp;</span> Reports </button>
+                                    <h1 class ="" style ="font-size:1.7em;font-family: calibri;font-weight: 100">Deposits</h1>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Search</label>
+                                                <div class ="row">
+                                                    <div class ="col-md-5">
+                                                        <input type ="date" class ="form-control input-sm"  Placeholder ="Press Enter to search.." id ="SearchFrom">
+                                                    </div>
+                                                    <div class ="col-md-1"><span>-</span></div>
+                                                    <div class ="col-md-5">
+                                                        <input type ="date" class ="form-control input-sm"  Placeholder ="Press Enter to search.." id ="SearchTo">
+                                                    </div>
+                                                    <div class ="col-md-1" style ="padding-left: 5px"><button class="btn btn-primary helix-btn btn-sm" onclick ="SearchMember();">
+                                                    <i class="fa fa-search"></i>
+                                                </button></div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class ="fixed-height">
+                                        <table class="table  table-condensed table-striped table-hover" id ="depositList">
+                                            <thead>
+                                                <tr>
+                                                    <th></th>
+                                                    <th>#</th>
+                                                    <th>Customer Name</th>
+                                                    <th>Tran ID</th>
+                                                    <th>Tran Date</th>
+                                                    <th>Acct Opening Date</th>
+                                                    <th>Deposit Type</th>
+                                                    <th style ="text-align:right">Amount</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class = "tbody-responsive" id ="deposit-infos">
+                                            </tbody> 
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class ="tab-pane" id ="add-deposit">
+                            <br>
+                            <div class ="row">
+                                <div class ="col-md-6 col-md-offset-3">
+                                    <div class ="panel panel-primary">
+                                        <div class ="panel-heading"><span class ="" style ="font-size:1.0em;font-family: calibri;font-weight: 100">Deposit Amount</span></div>
+                                        <div class ="panel-body">
+                                            <form id ="deposit-form" action="">
+                                                
+                                                <div class ="form-group">
+                                                    <div class ="row">
+                                                        
+                                                        <input type ="hidden" class ="form-control input-sm" name ="SeqID" id ="SeqID">
+                                                        <div class ="col-md-6">
+                                                            <label>TranID</label>
+                                                            <input type ="text" class ="form-control input-sm" name ="TranID" id ="TranID">
+                                                        </div>
+                                                        <div class ="col-md-6">
+                                                            <label>TranDate</label>
+                                                            <input type ="date" class ="form-control input-sm" name ="TranDate" id ="TranDate">
+                                                            <input type ="hidden" class ="form-control input-sm" name ="AccountOpeningDate" id ="AccountOpeningDate">
+                                                        </div>
+                                                    </div>
+                                                    <label>Customer ID</label>
+                                                    <div class ="input-group">
+                                                        <input type ="text" class ="form-control input-sm" name ="CustomerID" placeholder="Customer ID" id ="CustomerID">
+                                                        <span class ="input-group-btn"><a href="#" class ="btn btn-primary btn-sm helix-btn" onclick="showCustomer();"><span>...</span></a></span>
+                                                    </div>
+                                                    <label>Amount</label>
+                                                    <input type ="text" class ="form-control input-sm" name ="Amount" id ="Amount">
+                                                    <label>Description</label><br>
+                                                    <label><input type = "radio" name ="DepositType" id ="DepositType" value ="Initial"> Initial </label>
+                                                    <label><input type = "radio" name ="DepositType" id ="DepositType" value ="Additional"> Additional </label>
+                                                    <label><input type = "radio" name ="DepositType" id ="DepositType" value ="Other"> Other </label>
+                                                    <br><label>If the input of other</label>
+                                                    <textarea rows ="3" name ="Remarks" class ="form-control" placeholder ="If input of other.." id ="Remarks"></textarea>
+                                                </div>
+                                            </form>
+                                            <button class ="btn btn-primary helix-btn form-control input-sm btn-sm" onclick="saveRecord();">Send</button>
+                                            
+
+                                        </div>
+                                    </div>
+                                    <div class="material-button-anim auto-left" style ="left : 90%">
+
+                                    <ul class="list-inline" id="options">
+                                        <li class="option">
+                                            <button class="material-button option2" onclick="deleteRecord();" type="button">
+                                                <span class="fa fa-trash-o" aria-hidden="true"></span>
+                                            </button>
+                                        </li>
+                                        <li class="option">
+                                            <button class="material-button option3" onclick="PrintForm();" type="button">
+                                                <span class="fa fa-print" aria-hidden="true"></span>
+                                            </button>
+                                        </li>
+                                    </ul>
+                                    <button class="material-button material-button-toggle" type="button">
+                                        <span class="fa fa-plus" aria-hidden="true"></span>
+                                    </button>
+                                </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal modal-semi-fullscreen fade scrollbar-path-vertical" id="customer-lookup" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style ="position:fixed;top:0;right:3%;left:3%;width:auto;margin:0">
+                <div class="modal-dialog">
+                    <div class="modal-content" style ="border-radius: 0px;border-color:#204d74">
+                        <div class ="modal-header"><span class ="fa fa-user"></span> Customers <a href="#" class ="fa fa-times pull-right" style ="color:#000"></a></div>
+                            <div class="modal-body" style ="height:60%;max-height: 510px;padding:15px;overflow-y: auto">
+                                <div class ="fixed-height">
+                                    <table class ="table table-bordered table-condensed table-hover" id ="customer-table-lookup">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Customer ID</th>
+                                                <th>Customer Name</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class ="btn btn-primary helix-btn" onclick="">OK</button>
+                                </div> 
+                            </div>
+                    </div>
+                </div>
+            </div>
+            <div id ="includePrompts"></div>
+        </div>
+
+    </body>
+</html>

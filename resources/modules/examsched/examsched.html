@@ -1,0 +1,255 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="google-signin-client_id" content="796362944125-hsanqgetffdqucbl0g46l6mjbcbeaib2.apps.googleusercontent.com"/>
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+        <title>Helix Portal</title>
+        <link href="../../css/bootstrap.min.css" media="all" rel="stylesheet" type="text/css" />
+        <link href="../../css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css" />
+        <link href="../../css/jquery-ui.css" media="all" rel="stylesheet" type="text/css" />
+        <script src="../../js/jquery-ui.js" type="text/javascript"></script>
+        <script src="../../js/jquery-1.10.2.min.js" type="text/javascript"></script>
+        <script src="../../js/bootstrap.min.js" type="text/javascript"></script>
+
+        <!-- CUSTOM JS -->
+        <script src ="../../js/portal.js"></script> 
+        <script src ="../../js/functions.js"></script>  
+        <!--Modules.js-->
+        <script src ="./examsched.js"></script>
+        <script src ="../udftable/udftable.js"></script>
+        <link href="../../css/mystyle.css" media="all" rel="stylesheet" type="text/css">
+
+    </head>
+    <body onload ="examschedOnload();">
+        <div class ="container-fluid">
+            <input type="hidden" id ="global-batnbr">
+            <input type="hidden" id ="global-reportid">
+            <input type="hidden" id ="global-moduleid">
+
+            <div class ="tab-content">
+                <div class ="container-fluid" style ="background : #fff;padding-left: 5px;padding-top:5px;padding-bottom: 5px;border-bottom: 1px solid #d0d4d8">
+                    <span style ="font-family: calibri;font-weight: bold;font-size: 15pt;"> Exam Schedule </span>
+                </div>
+                <div class ="tab-pane active" id ="examsched">
+                    <div class ="row toolbar" style ="background: #f8f8f8;margin-left: -5px">
+                        <div class ="col-md-12">
+                            <button type ="button" class ="btn btn-success btn-sm helix-btn" onclick ="createSched();" id ="createSchedule" style ="margin: 10px 0 0 0"> <span class ="fa fa-edit">&nbsp;</span> Create Schedule </button>
+                            <button type ="button" class ="btn btn-success btn-sm helix-btn" onclick ="viewReportPanel('FormName', 'examschedgrid');" style ="margin: 10px 0 0 0"><span class ="fa fa-print">&nbsp;</span> View Available Reports </button>
+                        </div>
+                    </div>
+                    <div class ="div-form">
+                        <div class ="row">
+                            <div class ="col-md-3">
+                                <br>
+                                <span style ="font-family: calibri;font-size: 10pt;color: #989495;" >Transaction as of <span id ="asof"></span></span>
+                                <br><br>
+                                <div class="form-group">
+                                    <input type ="text" class ="form-control input-sm"  Placeholder ="By Schedule, Examiner, Level, Room" id ="Search">
+                                    <button class="btn btn-primary helix-btn" onclick ="SearchExamSched();" style ="border-radius: 0px;display:none">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class ="fixed-height">
+                            <table class ="table table-bordered table-condensed" id ="table-examsched">
+                                <thead>
+                                <th></th>
+                                <th>Level</th>
+                                <th>Exam Schedule</th>
+                                <th>Building</th>
+                                <th>Exam Room</th>
+                                <th>Status</th>
+                                </thead>
+                                <tbody class ="tbody-responsive"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class ="tab-pane" id ="examresults">
+                    <br>
+                    <span  style ="font-family: calibri;font-size: 1.7em;color: #000;font-weight: 100">List of </span><span style ="font-family: calibri;font-size: 1.7em;color: #000;"><b> Applicants</b></span>
+                    <br>
+                    <div class ="row">
+                        <div class ="col-md-3 col-md-offset-9">
+                            <div class="form-group">
+                                <label>Search</label>
+                                <input type ="text" class ="form-control input-sm"  Placeholder ="By Applicant No, Name, Level" id ="Search">
+                                <button class="btn btn-primary helix-btn" onclick ="SearchApplicant();" style ="border-radius: 0px;display:none">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class ="fixed-height">
+                        <table class ="table table-condensed table-bordered" id ="table-genadmission">
+                            <thead>
+                            <th></th>
+                            <th>Applicant No.</th>
+                            <th>Last Name</th>
+                            <th>First Name</th>
+                            <th>Middle Name</th>
+                            <th>Level</th>
+                            <th>Status</th>
+                            </thead>
+                            <tbody class ="tbody-responsive"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class ="tab-pane" id ="student-view">
+                    <br>
+                    <div class ="row" style ="margin-bottom:15px">
+                        <div class ="col-md-12">
+                            <span  style ="font-family: calibri;font-size: 1.7em;color: #000;font-weight: 100">Student </span><span style ="font-family: calibri;font-size: 1.7em;color: #000;"><b> Entrance Exam Result</b></span>
+                        </div>
+                    </div>
+
+                    <form action ="" id ="genadmission-form">
+                        <label>Application No :</label>
+                        <div class ="row remove-margin">
+                            <div class ="col-md-3"><input type ="text" class ="form-control input-sm  " placeholder ="Application Number"  id ="ApplicationNo" name ="ApplicationNo"></div>
+                            <div class ="col-md-3">
+                                <input type ="text" class ="form-control input-sm  " placeholder ="Applying For"  id ="EntryLevel" name ="EntryLevel">
+                            </div>
+                        </div>
+
+                        <label>Applicant Name :</label>
+                        <div class ="row remove-margin">
+                            <div class ="col-md-3">
+                                <input type ="text" class ="form-control input-sm  " placeholder ="Last Name"  id ="LastName" name ="LastName">
+                            </div>
+                            <div class ="col-md-3">
+                                <input type ="text" class ="form-control input-sm  " placeholder ="First Name"  id ="FirstName" name ="FirstName">
+                            </div>
+                            <div class ="col-md-3">
+                                <input type ="text" class ="form-control input-sm  " placeholder ="Middle Name"  id ="MiddleName" name ="MiddleName">
+                            </div>
+                        </div>
+                        <div class ="row remove-margin">
+                            <div class ="col-md-1"><label>SAI :</label></div>
+                            <div class ="col-md-2"><input type ="text" class ="form-control input-sm" placeholder ="SAI"  id ="SAI" name ="SAI"></div>
+                            <div class ="col-md-3"><input type ="text" class ="form-control input-sm" placeholder ="SAI Interpret"  id ="SAIInterpret" name ="SAIInterpret"></div>
+                        </div>
+                        <div class ="row remove-margin">
+                            <div class ="col-md-1"><label>PGPA :</label></div>
+                            <div class ="col-md-2"><input type ="text" class ="form-control input-sm" placeholder ="PGPA"  id ="PGPA" name ="PGPA"></div>
+                            <div class ="col-md-3"><input type ="text" class ="form-control input-sm" placeholder ="PGPA Interpret"  id ="PGPAInterpret" name ="PGPAInterpret"></div>
+                        </div>
+                        <div class ="row remove-margin">
+                            <div class ="col-md-1"><label>MATH :</label></div>
+                            <div class ="col-md-2"><input type ="text" class ="form-control input-sm" placeholder ="MATH"  id ="Math" name ="Math"></div>
+                            <div class ="col-md-1" style ="padding-right: 0"><label>ENGLISH :</label></div>
+                            <div class ="col-md-2"><input type ="text" class ="form-control input-sm" placeholder ="English"  id ="English" name ="English"></div>
+                            <div class ="col-md-1"><label>SATRC :</label></div>
+                            <div class ="col-md-2"><input type ="text" class ="form-control input-sm" placeholder ="MATH"  id ="SATRC" name ="SATRC"></div>
+
+                        </div>
+                        <div class ="row remove-margin">
+                            <div class ="col-md-2"><label>Name of Examiner :</label></div>
+                            <div class ="col-md-4"><input type ="text" class ="form-control input-sm" placeholder ="Name of Examiner"  id ="Examiner" name ="Examiner"></div>
+                        </div>
+
+                        <div class ="row remove-margin">
+                            <div class ="col-md-2"><label>Average Score :</label></div>
+                            <div class ="col-md-4"><input type ="text" class ="form-control input-sm" placeholder ="Average Score"  id ="ExamResult" name ="ExamResult"></div>
+                        </div>
+                        <div class ="row remove-margin">
+                            <div class ="col-md-2"><label>Remarks :</label></div>
+                            <div class ="col-md-4"><select type ="text" class ="form-control input-sm" placeholder ="Remarks"  id ="ExamStatus" name ="ExamStatus"><option value ="PASSED">PASSED</option><option value ="FAILED">FAILED</option></select></div>
+                        </div>
+                        <input type ="hidden" id ="SeqID" name ="SeqID">
+                    </form>
+                    <div class ="row">
+                        <div class ="col-md-12" style ="display: block">
+                            <button class ="btn btn-success" onclick ="saveGenadmission();"><span class ="fa fa-save"></span> Submit </button>
+                            <button class ="btn btn-success" onclick ="cancel();"><span class ="fa fa-ban"></span> Cancel </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div id ="includePrompts"></div>
+        <div class="modal modal-semi-fullscreen fade scrollbar-path-vertical" id="CreateSched" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style ="position:fixed;top:0%;right:3%;left:3%;width:auto;margin:0">
+            <div class="modal-dialog" >
+                <div class="modal-content" style ="border-radius: 0px;border-color:#204d74">
+                    <div class ="modal-header">Exam Schedule</div>
+                    <div class="modal-body" id ="test" style ="height:60%;max-height: 510px;padding:15px;overflow-y: auto">
+                        <form action ="" id ="examsched-form">
+                            <div class ="row">
+                                <div class ="col-md-8">
+                                    <label>Academic Level</label>
+                                    <select class ="form-control input-sm" name ="EntryLevel" id ="EntryLevel" name ="EntryLevel">
+                                    </select>
+                                </div>
+                                <div class ="col-md-4">
+                                    <label>Status</label>
+                                    <select class ="form-control input-sm" name ="Staus" id ="Status">
+                                        <option value ="OPEN">OPEN</option>
+                                        <option value ="CLOSE">CLOSE</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class ="row">
+                                <div class ="col-md-3">
+                                    <label>School Year</label>
+                                    <select class ="form-control input-sm" name ="SchoolYear"></select>
+                                </div>
+                                <div class ="col-md-9">
+                                    <label>Semester</label>
+                                    <select class ="form-control input-sm" name ="Semester"></select>
+                                </div>
+                            </div>
+                            <div class ="row">
+                                <div class ="col-md-3">
+                                    <label>Room</label>
+                                    <input type ="text" class ="form-control input-sm" name ="Room">
+                                </div>
+                                <div class ="col-md-4">
+                                    <label>Building</label>
+                                    <input type ="text" class ="form-control input-sm" name ="Building">
+                                </div>
+                                <div class ="col-md-5">
+                                    <label>Exam Sched</label>
+                                    <input type ="datetime-local" class ="form-control input-sm" name ="ExamSched">
+                                </div>
+                            </div>
+                            <div class ="row">
+                                <div class ="col-md-3">
+                                    <label>No of Examinee</label>
+                                    <input type ="text" class ="form-control input-sm" name ="NoOfExaminee">
+                                </div>
+                                <div class ="col-md-9">
+                                    <label>Examiner</label>
+                                    <input type ="text" class ="form-control input-sm" name ="Examiner">
+                                </div>
+                            </div>
+                            <div class ="row">
+                                <div class ="col-md-12">
+                                    <label>Remarks</label>
+                                    <textarea class ="form-control" row ="3" id ="Remarks" name ="Remarks"></textarea>
+                                </div>
+                            </div>
+                        </form>
+                        <br>
+                        <div class ="row">
+                            <div class ="col-md-12" style ="display: -webkit-display-box">
+                                <button id ="ConfirmType" class ="btn btn-success helix-btn  pull-right" data-dismiss="modal" onclick="closeModal();">Close</button>
+                                <button  class ="btn btn-success helix-btn pull-right" data-dismiss="modal" onclick="saveExamSchedRecord();" style ="margin-right: 5px">Save</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
