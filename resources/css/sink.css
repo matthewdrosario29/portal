@@ -1,0 +1,656 @@
+.x-toolbar-sencha {
+/*  background-color: #0e558a;
+  border-bottom: 1px solid #115f99;*/
+/*  background-color: #6bb445;
+  border: 1px solid #6bb445;*/
+  background-color: #028a91;
+  border: 1px solid #028a91;
+}
+
+.x-mask.splashscreen {
+        background-color: white;
+        opacity: 1;
+}
+
+.togglebtn {
+  background-color: #33ADD6;
+}
+    
+.x-mask-msg.splashscreen,
+.x-mask-msg.splashscreen div {
+        font-size: 16px;
+        padding: 30px 5px 5px 5px;
+        border: none;
+        background-color: transparent;
+        background-position: top center;
+}
+    
+.x-message-box .x-window-body .x-box-inner {
+        min-height: 110px !important;
+}
+
+.x-toolbar-sample {
+  background-color: #fff;
+  border-bottom: 1px solid #115f99;
+}
+
+.msg_floating {
+    position: absolute !important;
+    z-index: 3000000 !important;
+}
+
+.msg_floating2 {
+    position: absolute !important;
+    z-index: 2000000 !important;
+}
+
+.notif_bal {
+    border:1px ;
+}
+
+.notif_blbtn {
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+    font-family: 'Helvetica';
+    font-size: 3em;
+}
+
+.gensetup {
+    font-weight: bold;
+    font-family: 'Helvetica';
+    font-size: small;
+}
+
+.notif_bl {
+    position:absolute;
+    top: -8px;
+    right:-6px;
+    padding:0px 2px 0px 2px;
+    background-color:red;
+    color:white;
+    font-weight:bold;
+    font-size:1em;
+    border-radius:4px;
+    box-shadow:1px 1px 1px gray;
+}
+
+.x-toolbar-maintoolbar {
+/*  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #05477e), color-stop(100%, #65b2fa));
+  background-image: -webkit-linear-gradient(top, #05477e, #65b2fa);
+  background-image: -moz-linear-gradient(top, #05477e, #65b2fa);
+  background-image: -o-linear-gradient(top, #05477e, #65b2fa);
+  background-image: -ms-linear-gradient(top, #05477e, #65b2fa);*/
+  /*background-image: linear-gradient(top, #05477e, #65b2fa);*/
+  background-color: #c2c6cb;
+}
+
+/* line 11, ../sass/sink.scss IMPORTANT!*/
+.x-toolbar-sencha .x-logo {
+  padding: 5px;
+  /*background: url(../image/logo.png) no-repeat 10px 11px;*/
+  /*background: url(logo.png) no-repeat 10px 11px;*/
+  color: #fff;
+  font-size: 23px;
+  font-family: 'Segoe UI', tahoma, arial, verdana, sans-serif;
+  
+/*  font-weight: bold;
+  text-shadow: 0 1px 0 #4e691f;*/
+}
+
+.x-grid-cell-checkcolumn .x-grid-cell-inner {
+    padding-top: 4px;
+    padding-bottom: 2px;
+    line-height: 14px;
+}
+.x-grid-with-row-lines .x-grid-cell-checkcolumn .x-grid-cell-inner {
+    padding-top: 3px;
+}
+.x-grid-checkheader {
+    height: 14px;
+    background-image: url('../image/icons/fam/unchecked.gif');
+    background-position: 50% -2px;
+    background-repeat: no-repeat;
+    background-color: transparent;
+}
+
+.x-grid-checkheader-checked {
+    background-image: url('../image/icons/fam/checked.gif');
+}
+
+.x-grid-checkheader-unchecked {
+    background-image: url('../image/icons/fam/checked.gif');
+}
+
+.x-grid-checkheader-editor .x-form-cb-wrap {
+    text-align: center;
+}
+
+.viewed .x-grid-cell {
+    background-color: #f2f3f4 !important;
+}
+
+.notviewed .x-grid-cell {
+    /*background-color: #99ccff !important;*/
+    background-color: #95dfd0 !important;
+    border-color: #4cb8a2 !important;
+}
+
+.delcmc { 
+    background:transparent url("../image/SO/delivery.png") no-repeat center / contain !important;
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+.slscmc { 
+    background:transparent url("../image/SO/salesorder.png") no-repeat center / contain !important;
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+
+.vdrcmc { 
+    background:transparent url("../image/SO/vendor.png") no-repeat center / contain !important; 
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+
+.aracmc { 
+    background:transparent url("../image/SO/aranalysis.png") no-repeat center / contain !important;
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+
+.gpacmc { 
+    background:transparent url("../image/SO/gpanalysis.png") no-repeat center / contain !important;
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+
+.qtecmc { 
+    background:transparent url("../image/SO/quote.png") no-repeat center / contain !important;
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+
+.custcmc { 
+    background:transparent url("../image/SO/customer.png") no-repeat center / contain !important;
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+
+.btncmc { 
+    background:transparent url("../image/GL/req.png") no-repeat center / contain !important;
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+
+.reqcmc { 
+    background:transparent url("../image/Procurement/req.png") no-repeat center / contain !important;
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+
+.cnvcmc { 
+    background:transparent url("../image/Procurement/aob.png") no-repeat center /contain !important;
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+
+.pocmc { 
+    background:transparent url("../image/Procurement/po.png") no-repeat center / contain !important;
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+
+.rcvcmc { 
+    background:transparent url("../image/Procurement/receiving.png") no-repeat center / contain !important;
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+
+.rtvcmc { 
+    background:transparent url("../image/Procurement/return.png") no-repeat center / contain !important;
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+
+.itemcmc { 
+    background:transparent url("../image/Procurement/return.png") no-repeat center / contain !important;
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+
+.vndcmc { 
+    background:transparent url("../image/Procurement/return.png") no-repeat center / contain !important;
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+
+.whsecmc { 
+    background:transparent url("../image/Procurement/return.png") no-repeat center / contain !important;
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+
+.poacmc { 
+    background:transparent url("../image/Procurement/poanalysis.png") no-repeat center / contain !important;
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+
+
+.apvcmc { 
+    background:transparent url("../image/AP/voucher.png") no-repeat center / contain !important;
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+
+.cfcmc { 
+    background:transparent url("../image/AP/charity.png") no-repeat center / contain !important;
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+
+.przccmc { 
+    background:transparent url("../image/AP/prize.png") no-repeat center / contain !important;
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+
+.paycmc { 
+    background:transparent url("../image/AP/payment.png") no-repeat center / contain !important;
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+
+.rfpcmc { 
+    background:transparent url("../image/AP/reqforpyment.png") no-repeat center / contain !important;
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+
+.cfrfpcmc { 
+    background:transparent url("../image/AP/charity-ins.png") no-repeat center / contain !important;
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+
+.achequecmc{ 
+    background:transparent url("../image/AP/assigncheque.png") no-repeat center / contain !important;
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+
+.pccmc{
+    background:transparent url("../image/AP/petty.png") no-repeat center / contain !important;
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+
+.pcp{
+    background:transparent url("../image/AP/petty-p.png") no-repeat center / contain !important;
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+.creqcmc { 
+    background:transparent url("../image/AP/cashreq.png") no-repeat center / contain !important;
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+
+.genchcmc { 
+    background:transparent url("../image/AP/genpayment.png") no-repeat center / contain !important;
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+
+.capvchcmc { 
+    background:transparent url("../image/AP/createapv.png") no-repeat center / contain !important;
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+
+.recurapcmc { 
+    background:transparent url("../image/AP/recurvoucher.png") no-repeat center / contain !important;
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+
+
+.payencmc { 
+    background:transparent url("../image/AP/payendorsement.png") no-repeat center / contain !important;
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+
+.payreqcmc { 
+    background:transparent url("../image/AP/pymentrequest.png") no-repeat center / contain !important;
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+
+.recurpaycmc { 
+    background:transparent url("../image/AP/recurpyment.png") no-repeat center / contain !important;
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+
+.realloccmc { 
+    background:transparent url("../image/GL/reallocation.png") no-repeat center / contain !important;
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+
+.jrnlcmc { 
+    background:transparent url("../image/GL/journal.png") no-repeat center / contain !important;
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+
+.postrealloccmc { 
+    background:transparent url("../image/GL/postreallocation.png") no-repeat center / contain !important;
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+
+.acctcmc { 
+    background:transparent url("../image/GL/account.png") no-repeat center / contain !important;
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+
+.pclosecmc { 
+    background:transparent url("../image/GL/periodclosing.png") no-repeat center / contain !important;
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+
+.posttoglcmc { 
+    background:transparent url("../image/GL/posttogl.png") no-repeat center / contain !important;
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+
+.yearendcmc { 
+    background:transparent url("../image/GL/yearend.png") no-repeat center / contain !important;
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+
+.projcmc { 
+    background:transparent url("../image/GL/projects.png") no-repeat center / contain !important;
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+
+.fincmc { 
+    background:transparent url("../image/GL/financial.png") no-repeat center / contain !important;
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+
+.buscmc { 
+    background:transparent url("../image/GL/business.png") no-repeat center / contain !important;
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+
+.itemcmc { 
+    background:transparent url("../image/INV/inv.png") no-repeat center / contain !important;
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+
+.itemqtycmc { 
+    background:transparent url("../image/INV/inventoryquantity.png") no-repeat center / contain !important;
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+
+.whsecmc { 
+    background:transparent url("../image/INV/warehouse.png") no-repeat center / contain !important;
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+
+.irccmc { 
+    background:transparent url("../image/INV/receiving.png") no-repeat center / contain !important;
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+
+.isscmc { 
+    background:transparent url("../image/INV/issuance.png") no-repeat center / contain !important;
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+
+.trncmc { 
+    background:transparent url("../image/INV/transfer.png") no-repeat center / contain !important;
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+
+.salescmc { 
+    background:transparent url("../image/AR/sales.png") no-repeat center / contain !important;
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+
+.serviceinvoicecmc { 
+    background:transparent url("../image/AR/serviceinvoice.png") no-repeat center / contain !important;
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+
+.cashsalescmc { 
+    background:transparent url("../image/AR/cashsales.png") no-repeat center / contain !important;
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+
+.upsales { 
+    
+    background:transparent url("../image/AR/upsalestran.png") no-repeat center / contain !important;
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+
+.vsales { 
+    background:transparent url("../image/AR/salestran.png") no-repeat center / contain !important;
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+.receiptcmc { 
+    background:transparent url("../image/AR/receipt.png") no-repeat center / contain !important;
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+
+.applycreditcmc { 
+    background:transparent url("../image/AR/aplycredit.png") no-repeat center / contain !important;
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+
+
+.arledgercmc { 
+    background:transparent url("../image/AR/arledger.png") no-repeat center / contain !important;
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+
+.cancelreceiptcmc { 
+    background:transparent url("../image/AR/cancelreceipt.png") no-repeat center / contain !important;
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+
+.recursalescmc { 
+    background:transparent url("../image/AR/recursales.png") no-repeat center / contain !important;
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+.cashmanagement { 
+    background:transparent url("../image/CM/bankrecon.png") no-repeat center / contain !important;
+    height: 110px;
+    width: 160px;
+    margin:auto;
+}
+.cc_banner_proc{
+    background-image:url("../image/ap.png");
+    width:100%;
+    
+    background-repeat: no-repeat;
+    padding-top:50px;
+    display:block;
+}
+.cc_banner_acc{
+    background-image:url("../image/ap.png");
+    width:100%;
+    background-repeat: no-repeat;
+    padding-top:50px;
+    display:block;
+}
+.cc_banner_inv{
+    background-image:url("../image/ms2.png");
+    width:100%;
+    background-repeat: no-repeat;
+    padding-top:50px;
+    display:block;
+}
+.cc_banner_sales{
+    background-image:url("../image/sc2.png");
+    width:100%;
+    background-repeat: no-repeat;
+    padding-top:50px;
+    display:block;
+}
+.cc_banner_tm{
+    background-image:url("../image/sc2.png");
+    width:100%;
+    background-repeat: no-repeat;
+    padding-top:50px;
+    display:block;
+}
+.flbl {
+    font: normal 12px courier !important;
+}
+.x-mask-loading-screen{
+    height: 70px;
+    width: 70px;
+    background-image: url('../image/713.GIF') !important;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border: none;
+}
+
+.cc_proc { 
+    background:transparent url("../image/cc/proc.png") no-repeat center / contain !important;  
+    height: 150px;
+}
+.cc_acc { 
+    background:transparent url("../image/cc/acc.png") no-repeat center / contain !important; 
+    height: 150px;
+}
+.cc_inv { 
+    background:transparent url("../image/cc/inv.png") no-repeat center / contain !important;
+    height: 150px;
+}
+.cc_sales { 
+    background:transparent url("../image/cc/sales.png") no-repeat center / contain !important;
+    height: 150px;
+}
+.cc_payroll { 
+    background:transparent url("../image/cc/payroll.png") no-repeat center / contain !important;
+    height: 150px;
+}
+.treasurymanagement { 
+    background:transparent url("../image/cc/bankrecon.png") no-repeat center / contain !important;
+    height: 150px;
+}
+.x-action-col-cell img
+{
+    width: 16px;
+    height: 16px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    margin-right: 3px;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.x-action-col-cell img.green
+{
+background-image: url(../image/icons/fam/ok.gif) !important; 
+}
+
+.x-action-col-cell img.red
+{
+background-image: url(../image/icons/fam/exclamation.gif) !important;
+}
+
+
