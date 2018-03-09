@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+    <session-config>
+        <session-timeout>
+            120
+        </session-timeout>
+    </session-config>
+    <context-param>
+        <param-name>crystal_image_uri</param-name>
+        <param-value>/crystalreportviewers120</param-value>
+    </context-param>
+    <context-param>
+        <param-name>crystal_image_use_relative</param-name>
+        <param-value>webapp</param-value>
+    </context-param>
+    <context-param>
+        <param-name>adminUser</param-name>
+        <param-value>user2</param-value>
+    </context-param>
+    <context-param>
+        <param-name>p_id</param-name> 
+        <param-value>270</param-value>
+    </context-param>
+    <servlet>
+    <servlet-name>CrystalReportViewerServlet</servlet-name>
+    <servlet-class>com.crystaldecisions.report.web.viewer.CrystalReportViewerServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+    <servlet-name>CrystalReportViewerServlet</servlet-name>
+    <url-pattern>/CrystalReportViewerHandler</url-pattern>
+    </servlet-mapping>
+
+</web-app>
