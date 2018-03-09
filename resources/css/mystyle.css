@@ -532,6 +532,12 @@ a.article, a.article:hover {
     .myaccountbox{
     width: 220px !important;border-top-style: solid;border-top-color: #09365a;border-width: thick;box-shadow: 1px 1px 1px 1px #000
 }
+.header-mobile{
+    display: block !important;
+}
+.adjust-top{
+    margin-top: 15px !important;
+}
 /*    .chartjs-render-monitor{
         max-width: 700px !important;
         width: 700px !important;
@@ -2391,7 +2397,7 @@ body::-webkit-scrollbar-thumb{
 
 
 .login-header{
-    background-color: #09365a !important;
+    background-color: #09365a;
     font-family: calibri;
     color:#fff !important;
     font-size: 2.5rem;
