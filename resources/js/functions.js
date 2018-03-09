@@ -374,7 +374,7 @@ function loadHtmlForm(id, submodule, ModuleName ){
     try{
           $('.pmodules').removeClass('active');
           $('#'+id).addClass('active');
-          $("#iFrame").replaceWith('<iframe class ="adjust-iframe-margin" id ="iFrame" src ="./resources/modules/' + id + '/' + submodule + '.html" height ="99%" width = "100%" style ="border:0px;max-width: 100%;min-width:100%;width:100%;min-height:87vh;margin-top:-20px"></iframe>');
+          $("#iFrame").replaceWith('<iframe class ="adjust-iframe-margin " id ="iFrame" src ="./resources/modules/' + id + '/' + submodule + '.html" height ="99%" width = "100%" style ="border:0px;max-width: 100%;min-width:100%;width:100%;min-height:87vh;margin-top:-20px"></iframe>');
           hideshowMenu();
           $('.module-name').empty();
           $('.module-name').html(ModuleName);
