@@ -358,6 +358,21 @@ function hideshowMenu() {
         $('#sidebarCollapse').css('margin-top', '-1px');
     }
 }
+function hideshowMenuOnMobile() {
+
+//    alert('test');
+    $('#sidebarCollapse').css('margin-left', '0px');
+    $('#sidebar').toggleClass('active');
+    if ($('#sidebar').hasClass('active')) {
+        $('.adjust-margin-top').css('display','none');
+        $('.adjust-iframe-margin').css('display','none');
+    } else {
+        $('.adjust-margin-top').css('display','block');
+        $('.adjust-iframe-margin').css('display','block');
+        $('#sidebarCollapse').css('margin-left', '0px');
+        $('#sidebarCollapse').css('margin-top', '-1px');
+    }
+}
 
 //function hideBodyshowMenu() {
 //    $('#sidebarCollapse').css('margin-left', '0px');
