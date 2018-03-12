@@ -180,7 +180,8 @@ function logincallback(response) {
     if (email == null && curPage != 'login.html') {
         window.location.href = baseUrl + "login.html"; 
     }else if(email){
-        window.location.href = baseUrl + "main.html";
+        //window.location.href = baseUrl + "main.html";
+        cordova.InAppBrowser.open(baseUrl + "main.html", "_blank", "location=yes")
     }else{
         
     }
