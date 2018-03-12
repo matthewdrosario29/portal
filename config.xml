@@ -4,6 +4,7 @@
   <author href="http://helixsoftware.ph" email="support@helixsoftware.ph">Helix Software</author>
   <content src="index.html"/>
   <preference name="DisallowOverscroll" value="true"/>
+  <preference name="StatusBarBackgroundColor" value="#09365a" />
   <preference name="android-minSdkVersion" value="14"/>
   <plugin name="cordova-plugin-battery-status" source="npm" spec="~1.1.1"/>
   <plugin name="cordova-plugin-camera" source="npm" spec="~2.1.1"/>
