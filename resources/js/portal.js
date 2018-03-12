@@ -413,4 +413,15 @@ function changeLoginDisplay(test){
     $('#LoginType').html(loginType);
 }
 
+function showMoreOptions(){
+    $('#other-options').css('display','block');
+    $('#showMoreOptions').css('display','none');
+    $('#hideMoreOptions').css('display','block');
+}
+function hideMoreOptions(){
+    $('#other-options').css('display','none');
+    $('#hideMoreOptions').css('display','none');
+    $('#showMoreOptions').css('display','block');
+}
+
 
