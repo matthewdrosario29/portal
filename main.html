@@ -2,36 +2,52 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="google-signin-client_id" content="796362944125-hsanqgetffdqucbl0g46l6mjbcbeaib2.apps.googleusercontent.com"/>
         <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
         <title>Helix Portal</title>
         <link href="./resources/css/bootstrap.min.css" media="all" rel="stylesheet" type="text/css" />
+        <link href="./resources/fonts/material-icons.css" media="all" rel="stylesheet" type="text/css" />
         <link href="./resources/css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css" />
         <link href="./resources/css/jquery-ui.css" media="all" rel="stylesheet" type="text/css" />
+        <link href="./resources/css/select2.css" media="all" rel="stylesheet" type="text/css" />
+        <link href="./resources/css/xpull.css" media="all" rel="stylesheet" type="text/css" />
+
 
 
         <!-- CUSTOM JS -->
         <script src ="./resources/js/portal.js"></script> 
+
+
+
+        <!--<script src ="./resources/js/InAppBrowserProxy.js"></script>--> 
+        <!--<script src="./resources/js/select2.js" type="text/javascript"></script>-->
         <!--Modules.js-->
 
         <script src ="./resources/modules/pmodules/pmodules.js"></script>
         <script src ="./resources/js/functions.js"></script>  
         <link href="./resources/css/mystyle.css" media="all" rel="stylesheet" type="text/css">
+
+        <!--<link href="./resources/css/jquery.mobile-1.4.5.css" media="all" rel="stylesheet" type="text/css" />-->
     </head>
     <body onload ="chksessionOnMain();">
 
-
+        <!--        <div class="showbox">
+                    <div class="loader">
+                      <svg class="circular" viewBox="25 25 50 50">
+                        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+                      </svg>
+                    </div>
+                  </div>-->
         <div class ="container-fluid">
             <div class ="row navbar-portal hide-navbar">
                 <div class ="col-md-1" style="padding:25px 0 0 0;width: auto">
-                    <a href="#" id="sidebarCollapse"  onclick ="hideshowMenu();" class="btn  sidebarCollapse-media pull-right" style="display: block;margin-bottom: -7px;background:transparent;color:#fff;margin-top: -1px;border-radius: 0px;border-top-style:solid">
+                    <a href="#" id="sidebarCollapse"  onclick ="hideshowMenu();"  class="btn  sidebarCollapse-media pull-right" style="display: block;margin-bottom: -7px;background:transparent;color:#fff;margin-top: -1px;border-radius: 0px;border-top-style:solid">
                         <i class="fa fa-bars fa-2x"></i>
                     </a>
                 </div>
                 <div class="col-md-5">
                     <div class="row delete-padding" style="padding:25px 20px 0 0">
                         <div class="col-md-12">
-                            
+
                             <span><img id ="company-logo" src ="" alt ="Company Logo" class ="img-tmp img-center" style ="width: 55px;height: 55px;padding: 0;margin-top: -15px"></span>
                             <span class ="company-name" style ="font-family: calibri;font-size: 25px;letter-spacing: 3px;font-weight: 100;margin-left: 25px"></span>
                             <!--<img src ="./resources/image/hireslogohelix.png" class ="img-tmp img-center">-->
@@ -51,7 +67,15 @@
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#" style =" color: #d4d7dd;" id="dropdownuserLink">
                                 <i class="fa fa-gear fa-fw" style="font-size: 20px;"></i><i class="fa fa-caret-down"></i>
                             </a>
+
                             <ul class="dropdown-menu aria-labelledby myaccountbox" dropdownuserLink="dropdown-user" style ="">
+                                <!--                                <div class ="row" style ="padding:10px">
+                                                                    <div class ="col-md-12">
+                                                                        <label>Search Module..</label>
+                                                                        <input class ="form-control" id ="Search Module">
+                                                                    </div>
+                                                                </div>-->
+
                                 <div class ="row" style="margin: 0;">
                                     <div class ="col-md-12">
                                         <p id="user"></p>
@@ -79,98 +103,72 @@
                     </div>
                 </div>
             </div>
-            <div class ="row mobile-nav-header" style ="display: none;background-color: #09365a">
-                <div class ="col-md-7">
-                    <div style ='display: -webkit-inline-box'>
-                        <a href="#" id="sidebarCollapse"  onclick ="hideshowMenuOnMobile();" class="btn navbar-btn sidebarCollapse-media" style="display: none;margin-bottom: 10px;background:#fff;color:#fff;margin-top: 0px;border-radius: 0px;border-top-style:solid">
-                            <i class="fa fa-bars fa-2x"></i>
+            
+            <div>
+                <div class ="row mobile-nav-header" style ="background-color: #09365a;z-index: 5">
+
+                    <div class ="col-xs-1">
+                        <a href="#" id="sidebarCollapse"   onclick ="hideshowMenuOnMobile();" class="btn navbar-btn sidebarCollapse-media sidebarCollapse-media-mobile" style="margin-bottom: 10px;background:#fff;color:#fff;margin-top: 0px;border-radius: 0px;border-top-style:solid">
+                            <!--<i class="fa fa-bars fa-2x"></i>-->
+                            <i class="material-icons">menu</i>
                         </a>
-                        
-                        
-                        <div style ="margin-top: 10px;margin-left: 15px"><span style ="font-family: calibri;font-size: 17px;font-weight: 100;color: #fff" class ="module-name">Home</span></div>
-<!--                        <span><img id ="company-logo-mobile" src ="" alt ="Company Logo" class ="" style ="margin-top: 5px;width: 55px;height: 55px;margin-right: 10px;display: none"></span>
-                        <span class ="company-name" style ="font-family: calibri;font-size: 25px;letter-spacing: 3px;font-weight: 100;margin-left: 25px"></span>-->
+                        <a href="#" id="sidebarCollapseBack"  onclick ="backToModule();" onclick ="" class="btn navbar-btn  sidebar-mobile" style="display: none;margin-bottom: 10px;color:#fff;margin-top: 5px;border-radius: 0px;border-top-style:solid;margin-left: -10px !important">
+                            <!--<i class="fa fa-arrow-left fa-2x"></i>-->
+                            <i class="material-icons">arrow_back</i>
+                        </a>
+                        <input type ="hidden" id="ModuleGroup">
+                        <input type ="hidden" id="ModuleID">
+                        <input type ="hidden" id="ModuleName">
                     </div>
-
-                </div>
-                <div class="col-md-5" style ="margin-top: -40px">
-                    <div class ="row pull-right">
-<!--                        <div class="dropdown pull-right">
-                            <a href="#" target  ="_blank" style =" color: #09365a;">
-                                <i class="fa fa-question-circle" style="font-size: 20px;"></i><span style ="font-family: calibri">&nbsp;Help</span>
-                            </a>
-
-                             /.dropdown-user 
-                        </div>-->
-                        <div class="dropdown pull-right" style="margin-right: 10px;">
+                    <div class ="col-xs-7">
+                        <div style ="margin-top: 12px;margin-left: 15px"><span style ="font-family: tahoma;font-size: 15px;font-weight: 100;color: #fff" class ="module-name">Home</span></div>
+                    </div>
+                    <div class ="col-xs-1 col-xs-offset-1 pull-right" style ="margin-top: 8px">
+                        <div class="dropdown pull-right">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#" style =" color: #09365a;" id="dropdownuserLink">
-                                <i class="fa fa-user fa-fw" style="font-size: 20px;color:#fff"></i><i class="fa fa-caret-down"></i>
+                                <!--<i class="fa fa-ellipsis-v" style="font-size: 20px;color:#fff"></i>-->
+                                <i class="material-icons" style="font-size: 2.0em;color:#fff">more_vert</i>
                             </a>
-                            <ul class="dropdown-menu aria-labelledby myaccountbox" dropdownuserLink="dropdown-user" style ="color:#fff">
-                                <div class ="row" style="margin: 0;">
-                                    <div class ="col-md-12">
-                                        <p id="user-mobile"></p>
-                                    </div>
-                                </div>
-                                <li class="divider"></li>
-                                <div class ="row" style="margin: 0;">
-                                    <div class ="col-md-4">
-                                        <p style ="font-family: calibri;font-size: 10pt;font-weight: bold">Modules</p>
-                                    </div>
-                                    <div class ="col-md-4">
-                                        <p style ="font-family: calibri;font-size: 10pt;font-weight: bold">Transactions</p>
-                                    </div>
-                                    <div class ="col-md-4">
-                                        <p style ="font-family: calibri;font-size: 10pt;font-weight: bold">About you</p>
-                                        <li style= "margin-bottom: 10px"><a href="#" onclick ="" style =" color: #000;font-family: calibri;font-size: 10pt;font-weight: 100"><i class="fa fa-user"></i> Profile</a>
-                                        <li style= "margin-bottom: 10px"><a  class="dropdown-item" href="#" onclick ="logout();" style =" color: #000;font-family: calibri;font-size: 10pt;font-weight: 100"><i class="fa fa-lock"></i> Logout</a>
-                                    </div>
-                                </div>
-
-
+                            <ul class="dropdown-menu aria-labelledby" dropdownuserLink="dropdown-user" style ="color:#fff;border-radius: 0px;top:-15px">
+                                <li style =" color: #000;font-family: calibri;font-size: 10pt;font-weight: 100"><a class ="dropdown-item">Feedback</a></li>
+                                <li style =" color: #000;font-family: calibri;font-size: 10pt;font-weight: 100"><a class ="dropdown-item">Help</a></li>
+                                <li style= "margin-bottom: 10px"><a  class="dropdown-item" href="#" onclick ="logout();" style =" color: #000;font-family: calibri;font-size: 10pt;font-weight: 100">Sign Out</a>
                             </ul>
-                            <!-- /.dropdown-user -->
                         </div>
-                        <!--                        <div class="dropdown pull-right" style="margin-right: 20px;">
-                                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" style =" color: #d4d7dd;">
-                                                        <i class="fa fa-bell fa-fw" style="font-size: 20px;color: #09365a"></i><i class="fa fa-caret-down" style ="color: #09365a"></i>
-                                                    </a>
-                                                    <ul class="dropdown-menu dropdown-alerts" >
-                        
-                                                        <li>
-                                                            <a href="#" style="color: #d4d7dd;">
-                                                                <div >
-                                                                    <i class="fa fa-comment fa-fw"></i> New Comment
-                                                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                                                </div>
-                                                            </a>
-                                                        </li>
-                        
-                                                    </ul>
-                                                     /.dropdown-alerts 
-                                                </div>-->
                     </div>
-                </div>
-
-
+<!--    <div id ="banner-connection" class ="container-fluid" style ="background: transparent;position: relative;top:-45px;">
+                       <center><span id ="status-connection" style ="color: #fff"><span style ="color:green">∙</span>Connected</span></center>
+                   </div>-->
+                </div> 
             </div>
+            <div class ="row">
+                <div id ="banner-connection" class ="container-fluid" style ="">
+                    <center><span id ="status-connection" style ="color: #fff"></span></center>
+                </div>
+            </div>
+            
+
+            
+            
+            
+
         </div>
 
         <div class="wrapper">
             <nav id="sidebar" style ="margin-top: 8px">
                 <div class="sidebar-header" style ="height: 40px;padding-top: 10PX">
                     <span style ="color:#000;font-family: calibri;letter-spacing: 3px;padding:10px 0 0 15px;font-weight: bold">NAVIGATION</span>
-                    <!--                        <img id ="company-logo" src ="" alt ="Company Logo" class ="img-tmp img-center" style ="width: 55px;height: 55px;padding: 0;margin-top: -15px">
-                                            <span class ="initial-companyid"></span>
-                                            <br><br><span style ="font-size: .9em" id ="myaccount-email"></span>
-                                                <img src ="./resources/image/ssc.png" class ="img-tmp img-center" style ="width: 130px;height: 130px;padding: 0;margin-top: -40px">-->
+                    <!--                                            <img id ="company-logo" src ="" alt ="Company Logo" class ="img-tmp img-center" style ="width: 55px;height: 55px;padding: 0;margin-top: -15px">
+                                                                <span class ="initial-companyid"></span>
+                                                                <br><br><span style ="font-size: .9em" id ="myaccount-email"></span>
+                                                                    <img src ="./resources/image/ssc.png" class ="img-tmp img-center" style ="width: 130px;height: 130px;padding: 0;margin-top: -40px">-->
                 </div>
                 <div class="nav-side-menu scroll-bar" style ="width: 255px;height:560px;background: #f8f8f8;padding-bottom:40px">
 
                     <!--<i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content" aria-expanded="true"></i>-->
                     <div class="menu-list">
                         <ul id="menu-content" class="menu-content out collapse in">
-
+                            <li data-toggle="collapse" data-target="#charts" class="collapsed li-charts active" onclick="loadHtmlForm('charts','charts','Home');"><a href="#">&nbsp; Home</a></li>
                         </ul>
                     </div>
                 </div>
@@ -181,7 +179,7 @@
             <div id="content">
                 <div class ="sub-content" style ="margin-top:30px">
                     <div class="navbar-header margin-top">
-                        <img src ="./resources/image/hireslogohelix.png" class ="img-tmp img-center" style ="display: none">
+                        <!--<img src ="./resources/image/hireslogohelix.png" class ="img-tmp img-center" style ="display: none">-->
                     </div>
                 </div>
                 <iframe id="iFrame" class ="adjust-margin-top" src="./resources/modules/charts/charts.html" height ="99%" width = "100%" style ="border:0px;max-width: 100%;min-width:100%;width:100%;min-height:87vh;margin-top:-20px"></iframe>
@@ -190,13 +188,21 @@
 
         </div>
 
-<!--        <footer>
-            <div class ="footer-portal">
-                <span class ="footer-portal-content">Current Database:</span><span id ="dbname"></span>
-                <span class ="footer-portal-content">Powered by : </span><span style ="color: #fff;font-family: calibri;font-size: 10pt">Helix Software Technologies</span>
+        <footer>
+            <div class ="footer-portal" style ='background: #fff;border-top: 1px solid #b2b8bd;display: none'>
 
+                <!--<span class ="footer-portal-content">Current Database:</span><span id ="dbname"></span>-->
+                <div class ="row footer-nav">
+                    <div class ="col-xs-4" style ='padding:0'><center><button class ='btn-material inverse btn-sm form-control' style ='border-radius: 0px;padding-bottom: 40px' onclick="reloadPage();"><i class ="material-icons" style ='font-size: 1.6em'>&#xE88A;</i><span style ="font-size: 0.8em"><br>Home</span></button></center></div>
+                    <div class ="col-xs-4" style ='padding:0'><center><button class ='btn-material inverse btn-sm form-control' style ='border-radius: 0px;padding-bottom: 40px' onclick="openAccount();"><i class ="material-icons" style ='font-size: 1.6em'>&#xE8A6;</i><span style ="font-size: 0.8em"><br>Account</span><br></button></center></div>
+                    <div class ="col-xs-4" style ='padding:0'><center><button class ='btn-material inverse btn-sm form-control' style ='border-radius: 0px;padding-bottom: 40px' onclick=""><span class ='fa fa-gear' style ='font-size: 1.6em'></span><br><span  style ="font-size: 0.8em">Settings</span></button></center></div>
+                    <!--<div class ="col-xs-3" style ='padding:0'><center><button class ='btn-material inverse btn-sm form-control' style ='border-radius: 0px;padding-bottom: 40px' onclick="logout();"><span class ='fa fa-power-off' style ='font-size: 1.6em'><br><span>Home</span></span></button></center></div>-->
+                </div>
+                <!--<span class ="footer-portal-content">Powered by : </span><span style ="color: #fff;font-family: calibri;font-size: 10pt">Helix Software Technologies</span>-->
+                <!--<img src ="./resources/image/hireslogohelix1.png" class ="img-tmp img-center" style ="width: 20px;height: 10px;padding: 0;">-->
             </div>
-        </footer>-->
+
+        </footer>
         <div id ="includePrompts"></div>
 
 
@@ -204,7 +210,9 @@
 
         <script src="./resources/js/jquery-1.10.2.min.js" type="text/javascript"></script>
         <script src="./resources/js/jquery-ui.js" type="text/javascript"></script>
+        <!--<script src ="./resources/js/jquery.mobile-1.4.5.js"></script>--> 
         <script src="./resources/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src ="./resources/js/xpull.js"></script> 
         <script>
         $("#includePrompts").load("./resources/lookup/lookup.html");
         </script>
