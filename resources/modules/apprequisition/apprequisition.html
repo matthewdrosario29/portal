@@ -1,0 +1,314 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="google-signin-client_id" content="796362944125-hsanqgetffdqucbl0g46l6mjbcbeaib2.apps.googleusercontent.com"/>
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+        <title>Helix Portal</title>
+        <link href="../../css/bootstrap.min.css" media="all" rel="stylesheet" type="text/css" />
+        <link href="../../css/select2.css" media="all" rel="stylesheet" type="text/css" />
+        <link href="../../css/bootstrap-select.css" media="all" rel="stylesheet" type="text/css" />
+        <link href="../..//fonts/material-icons.css" media="all" rel="stylesheet" type="text/css" />
+        <link href="../../css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css" />
+        <link href="../../css/jquery-ui.css" media="all" rel="stylesheet" type="text/css" />
+        <script src="../../js/jquery-ui.js" type="text/javascript"></script>
+        <script src="../../js/jquery-1.10.2.min.js" type="text/javascript"></script>
+        <script src="../../js/bootstrap.min.js" type="text/javascript"></script>
+
+        <script src="../../js/select2.js" type="text/javascript"></script>
+
+        <link href="../../css/xpull.css" media="all" rel="stylesheet" type="text/css" />
+
+        <script src="../../js/xpull.js" type="text/javascript"></script>
+
+        <link href="../../css/material-input.css" media="all" rel="stylesheet" type="text/css" />
+        <script src="../../js/material-input.js" type="text/javascript"></script>
+
+
+        <script src="../../js/mdb.js" type="text/javascript"></script>
+        <script src="../../js/popper.min.js" type="text/javascript"></script>
+
+
+        <link href="../../css/bootstrap-table.css" media="screen" rel="stylesheet" type="text/css" />   
+        <script src="../../js/bootstrap-table.js" type="text/javascript"></script>
+
+
+
+
+
+        <!-- CUSTOM JS -->
+
+        <script src ="../../js/portal.js"></script> 
+        <script src ="../../js/functions.js"></script>  
+        <!--Modules.js-->
+        <script src ="./apprequisition.js"></script>
+        <!--<script src ="../../modules/vehicle/vehicle.js"></script>-->
+        <link href="../../css/mystyle.css" media="all" rel="stylesheet" type="text/css">
+    </head>
+    <body onload ="requisitionOnload();">
+        <div class ="container-fluid">
+            <input type="hidden" id ="global-batnbr">
+            <input type="hidden" id ="global-reportid">
+            <input type="hidden" id ="global-moduleid">
+        </div>
+
+        <div style ="width:100%;margin: auto;padding-right: 5px;padding-left: 5px;overflow: hidden">
+            <div class ="tab-content">
+                <div class ="tab-pane active">
+<!--                    <div class ="container-fluid div-module-caption" >
+                        <span style ="font-family: calibri;font-weight: bold;font-size: 15pt;" id ="Module-Name"> Requisition </span>
+                        <div class="dropdown pull-right reqform-tool" style ="margin-top: 5px;display: none" >
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" style =" color: #09365a;" id="dropdownuserLink">
+                                <i class="fa fa-ellipsis-v" style="font-size: 20px;color:#000"></i>
+                            </a>
+                            <ul class="dropdown-menu aria-labelledby" dropdownuserLink="dropdown-user" style ="color:#fff;border-radius: 0;border: 1px solid #cfc6c6;top:15px;box-shadow: 1px 1px 1px 1px #cfc6c6">
+                                <li id ="btn-print"><a class =""  onclick ="PrintForm();"><span class ="fa fa-print"></span> &nbsp;Print</a></li>
+                                <li id ="btn-add" ><a class ="" onclick="addRecord();"><span class ="fa fa-file"></span> &nbsp; Create</a></li>
+                                <li id ="btn-edit" ><a class ="" onclick="editRecord();"><span class ="fa fa-edit"></span> &nbsp;Edit</a></li>
+                                <li id ="btn-delete" ><a class ="" onclick="confirmDelete();"><span class ="fa fa-trash-o"></span> &nbsp;Delete</a></li>
+
+                            </ul>
+
+
+
+
+                        </div>
+                    </div>-->
+
+                    <div class ="div-form" id ="requisition-list">
+
+                        <div class="xpull">
+                            <div class="xpull__start-msg">
+                                <div class="xpull__start-msg-text"></div>
+                                <div class="xpull__arrow"></div>
+                            </div>
+                            <div class="xpull__spinner">
+                                <div class="xpull__spinner-circle"></div>
+                            </div>
+                        </div>
+
+                        
+                        
+                        
+                        <!--<button class ="btn-material helix btn-sm" id ="create-btn" onclick ="addRecord();" style ="width: 85px"><span class ="fa fa-file-text"></span><span> Create </span>  </button>-->
+                        <!--<button class ="btn-material helix btn-sm" id ="print-btn" onclick ="viewReportPanel('FormName', 'apprequisitiongrid');" style ="width: 85px"><span class ="fa fa-print"></span><span> Print </span>  </button>-->
+                        <!--<button class ="btn-material helix btn-sm" id ="confirmMultiDelete" onclick="confirmMultiDelete();" style ="width: 130px"> <span class ="fa fa-trash-o"></span> <span> Delete Selected </span> </button>-->
+
+                        <div class ="row" style ="border-bottom: 2px solid #e9dfdf;margin-bottom: 10px">
+                            <div class ="col-md-2">
+                                <i class ="material-icons pull-right" onclick ='addRecord();' style ="font-size: 2.5em;color: #09365a">add</i>
+                                <i class ="material-icons pull-right" onclick ='confirmMultiDelete();' style ="font-size: 2.5em;color: #09365a">delete</i>
+                            </div>
+                            
+                            
+                            
+                        </div>
+
+                        <div class ="row " style ="margin-bottom: 10px">
+                            <div class ="col-md-3">
+                                
+                                <div class="form-group search-bar" style ='margin-top: auto'>
+                                    <input type ="text" class ="form-control-material input-sm search" id ="Search" placeholder="Search requisition" required>
+                                    <span class="form-highlight"></span>
+                                    <span class="form-bar"></span>
+                                    <!--<label class="float-label" for="Amount">Search</label>-->
+                                    <button class="btn btn-primary helix-btn" onclick ="SearchTran();" style ="border-radius: 0px;display:none">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="table-responsive-vertical shadow-z-1">
+                            <table class ="table table-bordered table-condensed bootstrap-table" id ="table-requisition"  data-toolbar="#toolbar">
+                                <thead style ="font-size: 9pt">
+                                <th style ="color: #000;width: 2%;text-align: center" data-field="Checkbox" data-width ="2%" data-valign ="top"><input type = "checkbox" class ="checkbox_list" style = "width:15px;height:15px;" id ="select_all" onclick="selectAll();"></th>
+                                <th data-sortable ="true" data-field="Name" data-visible ="true">Name</th>
+                                <th data-sortable ="true" data-field="Amount" data-visible ="true">Amount</th>
+                                <th data-sortable ="true" data-field="Details" data-visible ="true">Details</th>
+                                <th data-sortable ="true" data-field="" data-visible ="true"></th>
+
+                                </thead>
+                                <tbody style ="font-size: 9pt">
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                    <div class ="div-form" id ="requisition-form" style ="display:none">
+                        <div class ="row mobile-closesave" style ="background: #09365a;margin-bottom: 30px;height: 60px">
+                            <div id ="forAdd">
+                                <div class ="col-xs-6" style ="border-right: 1px solid #fff">
+                                    <center>
+                                        <button class ="btn-material inverse btn-sm" id ="btn-cancel" onclick="cancelRecord();" style ="display: none;width: 100px;margin-right: 5px;color: #fff;border: transparent;box-shadow: none"><span style="display: grid"><i class ="material-icons">close</i>Cancel</span></button>
+                                     </center>
+                                </div>
+                                <div class ="col-xs-6">
+                                    <center>
+                                        <!--<button class ="btn-material inverse btn-sm" id ="btn-save" onclick="saveRecord();" style ="display: none;width: 100px;margin-right: 5px;color: #fff;border: transparent;padding:15px 0 5px 9px"><i class ="material-icons">check</i> &nbsp; <span>Done</span></button>-->
+                                        <button class ="btn-material inverse btn-sm" id ="btn-save" onclick="saveRecord();" style ="display: none;width: 100px;margin-right: 5px;color: #fff;border: transparent;box-shadow: none"><span style="display: grid"><i class ="material-icons">check</i>Done</span></button>
+                                    </center>
+                                </div>
+                            </div>
+                            <div id ="forEdit">
+                                <div class ="col-xs-1" style ="margin-left: 5px;margin-top: 13px">
+                                    <i class="material-icons" onclick="closeRecord();" style ="color: #fff;font-size:  1.8em;">arrow_back</i>
+                                </div>
+                                <div class ="col-xs-4" style ="margin-left: 7px;margin-top: 15px;margin-left: 10px">
+                                    <span style ="color: #fff;font-size:  1.0em;"> Requisition</span>
+                                </div>
+                                <div class ="col-xs-1"></div>
+                                <div class ="col-xs-1"></div>
+                                <div class ="col-xs-1"></div>
+                                
+                                <div class ="col-xs-1"></div>
+                                <div class ="col-xs-1 pull-right" style ="margin-top: 13px;margin-left: 20px">
+                                    <div class="dropdown pull-right reqform-tool" style ="display: none" >
+                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" style =" color: #09365a;" id="dropdownuserLink">
+                                            <i class="material-icons" style ="color: #fff;font-size: 1.3em">more_vert</i>
+                                        </a>
+                                        <ul class="dropdown-menu aria-labelledby" dropdownuserLink="dropdown-user" style ="color:#fff;border-radius: 0;border: 1px solid #e9dfdf;top:15px;box-shadow: 1px 1px 1px 1px #e9dfdf">
+                                            <li id ="btn-print"><a class =""  onclick ="PrintForm();"> Preview </a></li>
+                                            <li id ="btn-add" ><a class ="" onclick="addRecord();"> Create</a></li>
+                                            <li id ="btn-delete" ><a class ="" onclick="confirmDelete();"> Delete</a></li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class ="col-xs-1 pull-right" style ="margin-top: 13px">
+                                    <i class="material-icons" onclick="editRecord();" style ="color: #fff;font-size: 1.3em">mode_edit</i>
+                                </div>
+                                
+                                
+                            </div>
+
+
+                        </div>
+                        <form action ="" id ="req_form">
+                            <div id ="test">
+
+                                <input type ="hidden"  name ="SeqID" id="SeqID">
+                                <input type ="hidden"  name ="BatNbr" id="BatNbr">
+                                <input type ="hidden" class ="form-control input-sm" name ="DocStatus" id ="DocStatus">
+                                <input type ="hidden" class ="form-control input-sm" name ="BranchID" id ="Branch">
+
+                                <div class ="row">
+                                    <div class ="col-md-3">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control-material" id="TranID" name ="TranID" >
+                                            <span class="form-highlight"></span>
+                                            <span class="form-bar"></span>
+                                            <label class="float-label" for="TranID">Transaction ID</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class ="row">
+                                    <div class ="col-md-3">
+                                        <div class="form-group">
+                                            <input type ="date" class ="form-control-material input-sm" name ="TranDate" id ="TranDate" >
+                                            <span class="form-highlight"></span>
+                                            <span class="form-bar"></span>
+                                            <label class="float-label" for="TranDate">Date</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type ="hidden" class ="form-control input-sm" name ="TranType" id ="TranType" >
+
+                                <!--                                    <div class ="col-md-2">
+                                                                        <label>Project</label>
+                                                                        <select type ="text" class ="form-control input-sm select2-project" name ="ProjectID" id ="ProjectID"></select>
+                                
+                                                                    </div>-->
+                                <div class ="row">
+                                    <div class ="col-md-3">
+                                        <div class="form-group">
+                                            <input type ="text" class ="form-control-material input-sm" name ="RequestedBy" id ="Name" >
+                                            <span class="form-highlight"></span>
+                                            <span class="form-bar"></span>
+                                            <label class="float-label" for="RequestedBy">Requested By</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class ="row">
+                                    <div class ="col-md-3">
+                                        <div class="form-group">
+                                            <input type ="text" class ="form-control-material input-sm number" name ="DocTotal" id="Amount" >
+                                            <span class="form-highlight"></span>
+                                            <span class="form-bar"></span>
+                                            <label class="float-label" for="Amount">Amount</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class ="row">
+                                    <div class ="col-md-4">
+                                        <div class="form-group">
+                                            <textarea name ="Details" class ="form-control-material" rows="3" id ="Details" style ="height: 60px"></textarea>
+                                            <span class="form-highlight"></span>
+                                            <span class="form-bar"></span>
+                                            <label class="float-label" for="Details">Details</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </form>
+
+
+                    </div>
+
+
+
+                    <div class ="row" style ="margin-top: 10px ">
+                        <div class ="col-md-4 toolbar-form"  style ="display: -webkit-inline-box">
+                            <!--                                 <button class ="btn-material helix-rounded btn-sm" id ="btn-add" onclick="addRecord();" style ="display: none;width: 100px;margin-right: 5px"><span class ="fa fa-file">&nbsp;</span> Add</button>
+                                                            <button class ="btn-material helix-rounded btn-sm" id ="btn-edit" onclick="editRecord();" style ="display: none;width: 100px;margin-right: 5px"><span class ="fa fa-edit">&nbsp;</span> Edit</button>
+                                                            <button class ="btn-material helix-rounded btn-sm" id ="btn-delete" onclick="confirmDelete();" style ="display: none;width: 100px;margin-right: 5px"><span class ="fa fa-times">&nbsp;</span> Delete</button>
+                                                            <button class ="btn-material helix-rounded btn-sm" id ="btn-print" onclick ="PrintForm();" style ="display: none;width: 100px;margin-right: 5px"><span class ="fa fa-print">&nbsp;</span> Print </button>-->
+                            <!--                                <button class ="btn-material helix-rounded btn-sm" id ="btn-save" onclick="saveRecord();" style ="display: none;width: 100px;margin-right: 5px"><span class ="fa fa-save">&nbsp;</span> Save</button>
+                                                            <button class ="btn-material helix-rounded btn-sm" id ="btn-cancel" onclick="cancelRecord();" style ="display: none;width: 100px;margin-right: 5px"><span class ="fa fa-ban">&nbsp;</span> Cancel</button>
+                                                            <button class ="btn-material helix-rounded btn-sm" id ="btn-close" onclick="closeRecord();" style ="display: none;width: 100px;margin-right: 5px"><span class ="fa fa-ban">&nbsp;</span> Close</button>-->
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal modal-semi-fullscreen fade scrollbar-path-vertical" id="MsgAlertDelete" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style ="position:fixed;top:0;right:3%;left:3%;width:auto;margin:0">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content" style ="border-radius: 0px;border-color:#204d74">
+                    <div class ="modal-header"><span class ="fa fa-warning fa-2x" style ="color: red"></span></div>
+                    <div class="modal-body" style ="height:60%;max-height: 510px;padding:15px;overflow-y: auto">
+                        <div class = "row" style ="padding-bottom: 20px">
+                            <div class ="col-md-12">
+                                <center><p>Delete Transaction?</p></center>
+                            </div>
+                        </div>
+                        <div class="modal-footer" style ="text-align: center">
+                            <div class ="row" style ="display: -webkit-inline-box">
+                                <div class ="col-md-6">
+                                    <button class ="btn btn-primary helix-btn" id ="Confirm-Yes" onclick="multiDelete();">Yes</button>
+                                </div>
+                                <div class ="col-md-6">
+                                    <button class ="btn btn-primary helix-btn" id ="Confirm-No" onclick ="closeNoReloadMsgbox();">No</button>
+                                </div>
+                            </div>
+
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div id ="includePrompts"></div>
+
+    </body>
+</html>

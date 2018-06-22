@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-var baseUrl = "http://116.93.120.29:8080/portal/";
+var baseUrl = "http://localhost:8080/portal/";
 
 var moduleArr = [];
 function pmodulescallback(response) {
@@ -38,6 +38,15 @@ function pmodulescallback(response) {
         else if (response.usage == 'getAllModules') {
             
             var data = response.data;
+            localStorage.setItem('Modules', JSON.stringify(data));
+            var mg = 'charts';
+            var sm = 'charts';
+            var md = 'Charts';
+//            $('#menu-content').append('<li data-toggle="collapse" data-target="#charts" class="collapsed li-charts" onclick="loadHtmlForm("charts","charts","Charts");"><a href="#">&nbsp; Home</a></li>');
+//            $('.mobile-tab').append('<li class = "active" onclick ="loadHtmlForm(\'' + mg + '\',\'' + sm + '\',\'' + md + '\');" ><a href="#Home" class = "noWrapText" aria-controls="Home" role="tab" data-toggle="tab">Home</a></li>');
+//            for(var j=0;j < data.length; j++){
+//                $('.mobile-tab').append('<li onclick ="loadHtmlForm(\'' + data[j].ModuleGroup + '\',\'' + data[j].SubModule + '\',\'' + data[j].ModuleName + '\');"><a href="#"'+ data[j].Form + ' class = "noWrapText" aria-controls='+ data[j].Form + ' role="tab" data-toggle="tab">'+ data[j].Form + '</a></li>');
+//            }          
             var modulegroup = '';
             var count = 0;
 
@@ -46,7 +55,7 @@ function pmodulescallback(response) {
             for(var i=0; i< data.length; i++){
                 if(i==0){
                     modulegroup = data[i].ModuleGroup;
-                    str += '<li data-toggle="collapse" data-target="#'+data[i].ModuleGroup+'" class="collapsed" onclick ="loadHtmlForm(\'' + data[i].ModuleGroup + '\',\'' + data[i].SubModule + '\',\'' + data[i].ModuleName + '\');"><a href="#" ><span class ="fa fa-file-o " style = "color:#000"></span>&nbsp; ' + data[i].ModuleName;
+                    str += '<li data-toggle="collapse" data-target="#'+data[i].ModuleGroup+'" class="collapsed li-'+data[i].ModuleGroup+'" onclick ="loadHtmlForm(\'' + data[i].ModuleGroup + '\',\'' + data[i].SubModule + '\',\'' + data[i].ModuleName + '\');"><a href="#" >&nbsp; ' + data[i].ModuleName;
                 }else{
                     if(modulegroup == data[i].ModuleGroup){
                         if(count == 0){
@@ -55,10 +64,10 @@ function pmodulescallback(response) {
                         count++;
                         if(count == 1){
                             str += '<ul class="sub-menu collapse" id="'+data[i].ModuleGroup+'">';
-                            str += '<li onclick ="loadHtmlForm(\'' + data[i].ModuleGroup + '\',\'' + data[i].SubModule + '\',\'' + data[i].ModuleName + '\');"><a href="#" style = "font-size:1.0em !important"><span class ="fa fa-file-o " style = "color:#000"></span>&nbsp; '+data[i-1].Form+'</a></li>';
-                            str += '<li onclick ="loadHtmlForm(\'' + data[i].ModuleGroup + '\',\'' + data[i].SubModule + '\',\'' + data[i].ModuleName + '\');"><a href="#" style = "font-size:1.0em !important"><span class ="fa fa-file-o " style = "color:#000"></span>&nbsp; '+data[i].Form+'</a></li>';
+                            str += '<li class = "collapsed li-'+data[i].SubModule+'" onclick ="loadHtmlForm(\'' + data[i].ModuleGroup + '\',\'' + data[i-1].SubModule + '\',\'' + data[i-1].ModuleName + '\');"><a href="#" style = "font-size:1.0em !important">&nbsp; '+data[i-1].Form+'</a></li>';
+                            str += '<li class = "collapsed li-'+data[i].SubModule+'" onclick ="loadHtmlForm(\'' + data[i].ModuleGroup + '\',\'' + data[i].SubModule + '\',\'' + data[i].ModuleName + '\');"><a href="#" style = "font-size:1.0em !important">&nbsp; '+data[i].Form+'</a></li>';
                         }else{
-                            str += '<li onclick ="loadHtmlForm(\'' + data[i].ModuleGroup + '\',\'' + data[i].SubModule + '\',\'' + data[i].ModuleName + '\');"><a href="#" style = "font-size:1.0em !important"><span class ="fa fa-file-o " style = "color:#000"></span>&nbsp; '+data[i].Form+'</a></li>';
+                            str += '<li class = "collapsed li-'+data[i].SubModule+'" onclick ="loadHtmlForm(\'' + data[i].ModuleGroup + '\',\'' + data[i].SubModule + '\',\'' + data[i].ModuleName + '\');"><a href="#" style = "font-size:1.0em !important">&nbsp; '+data[i].Form+'</a></li>';
                         }
                     }else{
 //                        console.log(count);
@@ -69,7 +78,7 @@ function pmodulescallback(response) {
                             count = 0;
                         }
                         modulegroup = data[i].ModuleGroup;
-                        str += '<li data-toggle="collapse" data-target="#'+data[i].ModuleGroup+'" class="collapsed" ><a href="#" onclick ="loadHtmlForm(\'' + data[i].ModuleGroup + '\',\'' + data[i].SubModule + '\',\'' + data[i].ModuleName + '\');"><span class ="fa fa-file-o " style = "color:#000"></span>&nbsp; ' + data[i].ModuleName;
+                        str += '<li data-toggle="collapse" data-target="#'+data[i].ModuleGroup+'" class="collapsed li-'+data[i].ModuleGroup+'" ><a href="#" onclick ="loadHtmlForm(\'' + data[i].ModuleGroup + '\',\'' + data[i].SubModule + '\',\'' + data[i].ModuleName + '\');">&nbsp; ' + data[i].ModuleName;
                     }
                 }
             }
@@ -80,7 +89,7 @@ function pmodulescallback(response) {
             }
             $('#menu-content').append(str);
 
-
+            
         }
     }
 }

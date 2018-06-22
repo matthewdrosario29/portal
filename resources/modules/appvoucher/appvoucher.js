@@ -2,47 +2,44 @@
 var connected;
 var tempData;
 var tempIdSetup;
-
-var baseUrl = "http://localhost:8080/portal/";
-
-var objArray = JSON.parse(localStorage.getItem('Access'));
-var UserID = objArray[0].UserID;
-
-function requisitionOnload() {
+function voucherOnload() {
+    tempData = localStorage.getItem('tmpvoucher');
+//    checkConnection();
     
-        
-    tempData = localStorage.getItem('tmprequisition');
     if (localStorage.getItem('connected') != 'false') {
             if(tempData !=null){
                 pushRecord(JSON.parse(tempData));
             }
             
-            setTimeout(function(){
+            setTimeout(function() {
                 jQuery.ajax({
                     type: 'POST',
                     jsonpCallback: "callback",
                     crossDomain: true,
                     dataType: 'jsonp',
-                    url: baseUrl + 'apprequisitionlist?jsonformat=jsonp&dolimit=true&limitcount=100&limitindex=0'
-                });
-
-                $('#Search').keyup(function(event) {
-                    if (event.keyCode === 13) {
-                        SearchTran();
-                    }
+                    url: baseUrl + 'appvoucherlist?jsonformat=jsonp&dolimit=true&limitcount=100&limitindex=0'
                 });
                 $('.showbox').hide();
-            },100);
+            },500);
             
+
+            $('#Search').keyup(function(event) {
+                if (event.keyCode === 13) {
+                    SearchTran();
+                }
+            });
         } else {
-            tempData = localStorage.getItem('tmprequisition');
-            tempIdSetup = localStorage.getItem('idsetup_requisition');
-            requisitionLocalStorage();
+            tempData = localStorage.getItem('tmpvoucher');
+            tempIdSetup = localStorage.getItem('idsetup_voucher');
+            voucherLocalStorage();
             $('.showbox').hide();
 
         }
-
-        $('.showbox').hide();
+        
+        
+        
+        
+        
 
 
 
@@ -52,17 +49,19 @@ function requisitionOnload() {
 
 
 
-function apprequisitioncallback(response) {
+function appvouchercallback(response) {
     if (response.success) {
-        if (response.usage == 'getApprequisition') {
+        $('.showbox').hide();
+        if (response.usage == 'getAppvoucher') {
+            
             var arr = response.data;
             for (var i = 0; i < arr.length; i++) {
 
-                $('.requisition-card').append(
+                $('.voucher-card').append(
                         '<div class = "row divrow' + (i) + '" style = "padding:10px;border-bottom: 1px solid #dcdbdb;cursor:pointer">'
-                        + '<div class ="col-xs-7"><span style = "font-style:calibri;font-size: 12pt;font-weight:bold">' + formatValue(arr[i].Name, true) + '</span></div>'
-                        + '<div class ="col-xs-5">PHP' + formatValue(formatCurrencyList(arr[i].Amount, true), true) + '</div>'
-                        + '<div class ="col-xs-12"><span style = "color:#8b8b8b">' + formatValue(arr[i].TranID, true) + '</span></div>'
+                        + '<div class ="col-xs-7"><span style = "font-style:calibri;font-size: 12pt;font-weight:bold">' + formatValue(arr[i].VendorID, true) + '</span></div>'
+                        + '<div class ="col-xs-5">PHP' + formatValue(arr[i].InvoiceAmt, true) + '</div>'
+                        + '<div class ="col-xs-12"><span style = "color:#8b8b8b">' + convertDate(arr[i].TranDate, true) + '</span></div>'
                         + '<div class ="col-xs-12">' + formatValue(arr[i].Details, true) + '</div>'
                         + '<div class ="col-xs-12"><span class = "fa fa-ellipsis-h"></span> <span>' + formatValue(arr[i].DocStatus, true) + '</span></div>'
                         + '</div>'
@@ -79,7 +78,7 @@ function apprequisitioncallback(response) {
                         loadForm(SeqID);
                     }
                 });
-//                $('#table-requisition').append('<tr class = "responsive-tr" id="rows1' + (i) + '" rownum = ' + (i) + ' style = "color:#000;cursor:pointer;">'
+//                $('#table-voucher').append('<tr class = "responsive-tr" id="rows1' + (i) + '" rownum = ' + (i) + ' style = "color:#000;cursor:pointer;">'
 //                        + ' <td width="2%"><input class = "checkbox_list" type = "checkbox" style = "width:15px;height:15px;margin-left:3px !important" value= ' + formatValue(arr[i].SeqID, true) + '></td>'
 //                        + '<td data-title= "Name:" class = "td-app">' + formatValue(arr[i].Name, true) + '</td>'
 //                        + '<td data-title= "Amount:" class = "td-app">' + formatValue(arr[i].Amount, true) + '</td>'
@@ -97,25 +96,24 @@ function apprequisitioncallback(response) {
 //                    }
 //                });
             }
-        } else if (response.usage == 'getExactApprequisition') {
+        } else if (response.usage == 'getExactAppvoucher') {
             var arr = response.data[0];
 
 
+            $('#VendorID').val(formatValue(arr.VendorID, true));
+            $('#Terms').val(formatValue(arr.Terms, true));
             $('#TranID').val(formatValue(arr.TranID, true));
             $('#TranDate').val(formatValue(arr.TranDate, true));
-            $('#TranType').val(formatValue(arr.TranType, true));
-            $('#Name').val(formatValue(arr.Name, true));
-            $('#Details').val(formatValue(arr.Details, true));
+            $('#DueDate').val(formatValue(arr.DueDate, true));
+            $('#ExpenseType').val(formatValue(arr.ExpenseType, true));
+            $('#PONo').val(formatValue(arr.PONo, true));
 
-            var $ItemID = $('<option selected>' + formatValue(arr.ItemID, true) + '</option>').val(formatValue(arr.ItemID, true));
-            $('#ItemID').append($ItemID).trigger('change');
-
-            $('#ItemDesc').val(formatValue(arr.ItemDesc, true));
-            $('#UOM').val(formatValue(arr.UOM, true));
-            $('#Qty').val(formatValue(arr.Qty, true));
-            $('#UnitCost').val(formatCurrencyList(formatValue(arr.UnitCost, true), true));
-            $('#Amount').val(formatCurrencyList(formatValue(arr.Amount, true), true));
-            $('#RequiredDate').val(formatValue(arr.RequiredDate, true));
+            $('#InvoiceNo').val(formatValue(arr.InvoiceNo, true));
+            $('#InvoiceReceivedDate').val(formatValue(arr.InvoiceReceivedDate, true));
+            $('#Vatable').val(formatValue(arr.Vatable, true));
+            $('#InvoiceAmt').val(formatCurrencyList(formatValue(arr.InvoiceAmt, true), true));
+            $('#DRNo').val(formatValue(arr.DRNo, true));
+            $('#Particulars').val(formatValue(arr.Particulars, true));
             $('#SeqID').val(arr.SeqID);
             $('#SeqIDRef').val(arr.SeqID);
             
@@ -123,15 +121,18 @@ function apprequisitioncallback(response) {
 
 
 
-            $('.name').html(arr.Name);
+            
             $('.referenceno').html(arr.TranID);
-            $('.referenceno').html(arr.TranID);
-            $('.itemdesc').html(arr.ItemDesc);
-            $('.requireddate').html(arr.RequiredDate);
-            $('.Qty').html(arr.Qty);
-            $('.UOM').html(arr.UOM);
-            $('.UnitCost').html(arr.UnitCost);
-            $('.details').html(arr.Details);
+            $('.trandate').html(convertDate(arr.TranDate, true));
+            $('.Terms').html(arr.Terms);
+            $('.PONo').html(arr.PONo);
+            $('.InvoiceNo').html(arr.InvoiceNo);
+            $('.InvoiceAmt').html(formatCurrencyList(arr.InvoiceAmt,true));
+            $('.Amount').html(arr.InvoiceAmt);
+            $('.ExpenseType').html(arr.ExpenseType);
+            $('.VendorID').html(arr.VendorID);
+            $('.Particulars').html(arr.Particulars);
+            $('.DueDate').html(convertDate(arr.DueDate,true));
         }
     }
 }
@@ -141,15 +142,15 @@ function addRecord() {
     /*Back Module*/
     $('.sidebarCollapse-media-mobile', window.parent.document).css('display', 'none');
     $('.sidebar-mobile', window.parent.document).css('display', 'block');
-    $('#ModuleGroup', window.parent.document).val('requisition');
-    $('#ModuleID', window.parent.document).val('requisition');
-    $('#ModuleName', window.parent.document).val('Requisition');
+    $('#ModuleGroup', window.parent.document).val('appvoucher');
+    $('#ModuleID', window.parent.document).val('appvoucher');
+    $('#ModuleName', window.parent.document).val('Voucher');
 
-    $('#requisition-list').css('display', 'none');
-    $('#requisition-form').css('display', 'block');
+    $('#voucher-list').css('display', 'none');
+    $('#voucher-form').css('display', 'block');
 
     $('#Module-Name').empty();
-    $('#Module-Name').html('New Requisition');
+    $('#Module-Name').html('New Voucher');
 
 
     //button
@@ -176,18 +177,18 @@ function addRecord() {
     removeRecord();
     // store
 
-    if (localStorage.getItem('connected') == 'false') {
+    if (localStorage.getItem('connected') != 'true') {
 
-        var requisitiono = localStorage.getItem('idsetup_requisition');
-        $('#TranID').val(requisitiono);
-//         $('#TranID').val(reqid);
+        var vouchero = localStorage.getItem('idsetup_voucher');
+//        alert(vouchero);
+        $('#TranID').val(vouchero);
     } else {
         jQuery.ajax({
             type: 'POST',
             jsonpCallback: "callback",
             crossDomain: true,
             dataType: 'jsonp',
-            url: baseUrl + 'idsetuplist?jsonformat=jsonp&module=REQAPP'
+            url: baseUrl + 'idsetuplist?jsonformat=jsonp&module=VOUCHERAPP'
         });
 
         jQuery.ajax({
@@ -203,38 +204,28 @@ function addRecord() {
 
 
 
-//
-//    var cookies = document.cookie;
-//    cookies = cookies.split("; ");
-//    var obj1 = new Object();
-//    for (var i = 0; i < cookies.length; i++) {
-//        try {
-//            var cookies_tmp = cookies[i].split("=");
-//            eval('obj1.' + cookies_tmp[0] + ' = "' + cookies_tmp[1] + '"');
-//        } catch (e) {
-//        }
-//
-//
-//    }
-//    console.log(obj1.UserID);
-    if(localStorage.getItem('connected') != 'false'){
-        jQuery.ajax({
-            type: 'POST',
-            jsonpCallback: "callback",
-            crossDomain: true,
-            dataType: 'jsonp',
-            url: baseUrl + 'userslist?jsonformat=jsonp&exactOnly=' + UserID
-        });
-    }else{
-        var FirstName = objArray[0].FirstName;
-        
-//        console.log(LastName);
-//        var FullName = objArray[0].FirstName + " " + objArray[0].MiddleName + " " + objArray[0].LastName;
 
-        var FullName = FirstName;
-        $('#Name').val(FullName);
+    var cookies = document.cookie;
+    cookies = cookies.split("; ");
+    var obj1 = new Object();
+    for (var i = 0; i < cookies.length; i++) {
+        try {
+            var cookies_tmp = cookies[i].split("=");
+            eval('obj1.' + cookies_tmp[0] + ' = "' + cookies_tmp[1] + '"');
+        } catch (e) {
+        }
+
+
     }
-    
+    console.log(obj1.UserID);
+
+    jQuery.ajax({
+        type: 'POST',
+        jsonpCallback: "callback",
+        crossDomain: true,
+        dataType: 'jsonp',
+        url: baseUrl + 'userslist?jsonformat=jsonp&exactOnly=' + obj1.UserID
+    });
 
 
     getDate();
@@ -251,11 +242,11 @@ function addRecord() {
 
 function idsetupcallback(response) {
     if (response.success) {
-        
+
         if (response.usage == 'getNextID') {
             var arr = response.data[0];
             $('#TranID').val(arr.NextGenID);
-            localStorage.setItem('idsetup_requisition', arr.NextGenID);
+            localStorage.setItem('idsetup_voucher', arr.NextGenID);
 
         }
     }
@@ -267,12 +258,14 @@ function getDate() {
     var month = ("0" + (now.getMonth() + 1)).slice(-2);
     var today = now.getFullYear() + "-" + (month) + "-" + (day);
     $('#TranDate').val(today);
-    $('#RequiredDate').val(today);
+    $('#DueDate').val(today);
+    $('#InvoiceReceivedDate').val(today);
+    
 }
 
 
 
-//function localStorage_requisition(datas){
+//function localStorage_voucher(datas){
 //    
 //}
 
@@ -283,14 +276,15 @@ function checkConnection() {
 
     jQuery.ajax({
         type: 'POST',
-        url: baseUrl + 'checksession?checkInternet=true&forpushrec=true&baseUrl='+baseUrl,
+        url: baseUrl + 'checksession?checkInternet=true&forpushrec=true&BaseUrl='+BaseUrl,
         success: function(response) {
             var hasInternet = response.Connected;
             var forpushrech = response.pushrec;
             connected = hasInternet;
+            console.log(connected);
             if (hasInternet && forpushrech) {
                 pushRecord(JSON.parse(tempData));
-                localStorage.removeItem('tmprequisition');
+                localStorage.removeItem('tmpvoucher');
             }
 //            console.log(JSON.parse(tempData));
 
@@ -306,13 +300,13 @@ function pushRecord(datas) {
 
     $.ajax({
         type: 'POST',
-        url: baseUrl + "apprequisitionservlet?operation=PUSH_RECORD",
+        url: baseUrl + "appvoucherservlet?operation=PUSH_RECORD",
         dataType: 'json',
         data: JSON.stringify(datas),
         contentType: "application/json",
         success: function(data) {
             console.log('records uploaded');
-            localStorage.removeItem('tmprequisition');
+            localStorage.removeItem('tmpvoucher');
         }});
 }
 
@@ -325,21 +319,23 @@ function saveRecord() {
         data.DocStatus = $('#DocStatus').val();
         $.ajax({
             type: 'POST',
-            url: baseUrl + "apprequisitionservlet?operation=UPDATE_RECORD",
+            url: baseUrl + "appvoucherservlet?operation=UPDATE_RECORD",
             dataType: 'json',
             data: JSON.stringify(data),
             contentType: "application/json",
             success: function(data) {
                 if (data.success) {
-                    var reqid = localStorage.getItem('idsetup_requisition');
-                    reqid = reqid.replace('REQ', '');
-                    var prefex = 'REQ';
-                    var Series = '000';
-                    var seq = parseInt(reqid) + 1;
+                    var appid = localStorage.getItem('idsetup_voucher');
+                    appid = appid.replace('AP', '');
+                    var prefex = 'AP';
+                    var Series = '0000';
+                    var seq = parseInt(appid) + 1;
                     var referenceid = prefex + Series + seq;
-                    localStorage.setItem('idsetup_requisition', referenceid);
+                    localStorage.setItem('idsetup_voucher', referenceid);
                     $('#MsgAlert').modal('show');
                     back();
+                    
+                    
                 } else {
                     $('#message-info').css('display', 'block');
                     $('#message-text').html(data.message);
@@ -348,7 +344,7 @@ function saveRecord() {
     } else {
 
 
-        var localStore = JSON.parse(localStorage.getItem('tmprequisition'));
+        var localStore = JSON.parse(localStorage.getItem('tmpvoucher'));
         if (localStore != null) {
 
             var key = $('#ArrayIndex2').val();
@@ -361,7 +357,7 @@ function saveRecord() {
                     break;
                 }
             }
-            localStorage.setItem('tmprequisition', JSON.stringify(localStore));
+            localStorage.setItem('tmpvoucher', JSON.stringify(localStore));
         }
 
 
@@ -385,25 +381,25 @@ function saveRecord() {
             }
         }
 
-        var localStore_requisition = localStorage.getItem('tmprequisition');
-        if (localStore_requisition) {
-            var objArr = eval(localStore_requisition);
+        var localStore_voucher = localStorage.getItem('tmpvoucher');
+        if (localStore_voucher) {
+            var objArr = eval(localStore_voucher);
             objArr.push(obj);
-            localStorage.setItem('tmprequisition', JSON.stringify(objArr));
+            localStorage.setItem('tmpvoucher', JSON.stringify(objArr));
         } else {
             var arr = [];
             arr.push(obj);
-            localStorage.setItem('tmprequisition', JSON.stringify(arr));
+            localStorage.setItem('tmpvoucher', JSON.stringify(arr));
         }
 
         if (key == null) {
-            var reqid = localStorage.getItem('idsetup_requisition');
-            reqid = reqid.replace('REQ', '');
-            var prefex = 'REQ';
-            var Series = '000';
-            var seq = parseInt(reqid) + 1;
+            var appid = localStorage.getItem('idsetup_voucher');
+            appid = appid.replace('AP', '');
+            var prefex = 'AP';
+            var Series = '0000';
+            var seq = parseInt(appid) + 1;
             var referenceid = prefex + Series + seq;
-            localStorage.setItem('idsetup_requisition', referenceid);
+            localStorage.setItem('idsetup_voucher', referenceid);
         }
 
 
@@ -417,9 +413,9 @@ function editRecord(arr) {
 
     $('#Module-Name').replaceWith('<span style ="font-family: calibri;font-weight: bold;font-size: 15pt;" id ="Module-Name"> Edit transaction </span>');
     /*form-view*/
-    $('#requisition-view').hide();
-    $('#requisition-form').show();
-    $('#requisition-list').hide();
+    $('#voucher-view').hide();
+    $('#voucher-form').show();
+    $('#voucher-list').hide();
 
     /*btn-control2*/
 
@@ -460,8 +456,8 @@ function editRecord(arr) {
         $('#ItemDesc').val(formatValue(arr.ItemDesc, true));
         $('#UOM').val(formatValue(arr.UOM, true));
         $('#Qty').val(formatValue(arr.Qty, true));
-        $('#UnitCost').val(formatValue(arr.UnitCost, true));
-        $('#Amount').val(formatValue(arr.Amount, true));
+        $('#UnitCost').val(formatCurrencyList(formatValue(arr.UnitCost, true), true));
+        $('#Amount').val(formatCurrencyList(formatValue(arr.Amount, true), true));
         $('#RequiredDate').val(formatValue(arr.RequiredDate, true));
         $('#SeqID').val(arr.SeqID);
         $('#ArrayIndex2').val(arr.TranID);
@@ -503,10 +499,10 @@ function deleteRecord(forlocal) {
     var SeqID = $('#SeqIDRef').val();
     if (localStorage.getItem('connected') != 'false') {
         
-//        var data = objectifyForm($('#requisition-form').serializeArray());
+//        var data = objectifyForm($('#voucher-form').serializeArray());
         $.ajax({
             type: 'POST',
-            url: baseUrl + "apprequisitionservlet?operation=DELETE_RECORD&SeqID="+SeqID,
+            url: baseUrl + "appvoucherservlet?operation=DELETE_RECORD&SeqID="+SeqID,
             dataType: 'json',
 //            data: JSON.stringify(data),
             contentType: "application/json",
@@ -522,7 +518,7 @@ function deleteRecord(forlocal) {
 
         if (forlocal) {
 
-            var localStore = JSON.parse(localStorage.getItem('tmprequisition'));
+            var localStore = JSON.parse(localStorage.getItem('tmpvoucher'));
 
             var key = $('#ArrayIndex').val();
             for (var i = 0; i < localStore.length; i++) {
@@ -537,7 +533,7 @@ function deleteRecord(forlocal) {
 
                 }
             }
-            localStorage.setItem('tmprequisition', JSON.stringify(localStore));
+            localStorage.setItem('tmpvoucher', JSON.stringify(localStore));
 
 
 
@@ -549,14 +545,14 @@ function deleteRecord(forlocal) {
 //            var index = localStore.indexOf(1);
 //            console.log(index);
 //            
-//            var tmprequisition = delete localStore[1];
+//            var tmpvoucher = delete localStore[1];
 //            
-//            console.log(tmprequisition);
+//            console.log(tmpvoucher);
 
-//            tmprequisition = localStore.splice(index,1);
+//            tmpvoucher = localStore.splice(index,1);
 //            
-//            console.log(tmprequisition);
-//            localStorage.setItem('tmprequisition', JSON.stringify(tmprequisition));
+//            console.log(tmpvoucher);
+//            localStorage.setItem('tmpvoucher', JSON.stringify(tmpvoucher));
 //            $('#MsgAlert').modal('show');
         }
 
@@ -569,7 +565,7 @@ function deleteRecord(forlocal) {
 }
 function printRecord() {
     var TranID = $('#TranID').val();
-    showReportForm(TranID, 'FormName', 'apprequisition');
+    showReportForm(TranID, 'FormName', 'appvoucher');
 }
 function printAllRecord() {
 
@@ -582,29 +578,25 @@ function cancelRecord() {
     });
     $('#Close-Yes').click(function() {
         $('#MsgAlertCloseForm').modal('hide');
-        $('#requisition-form').css('display', 'none');
-        $('#requisition-list').css('display', 'block');
+        $('#voucher-form').css('display', 'none');
+        $('#voucher-list').css('display', 'block');
         back();
         enabledInput();
-        $('#message-info').css('display', 'none');
-        $('#message-text').empty();
         $('#create-btn').show();
         $('#print-btn').show();
+        $('#message-info').css('display', 'none');
+        $('#message-text').empty();
 
     });
 }
 function loadForm(refid, arr) {
 
-    console.log(arr);
-    
-    
-
 
     $('.sidebarCollapse-media-mobile', window.parent.document).css('display', 'none');
     $('.sidebar-mobile', window.parent.document).css('display', 'block');
-    $('#ModuleGroup', window.parent.document).val('requisition');
-    $('#ModuleID', window.parent.document).val('requisition');
-    $('#ModuleName', window.parent.document).val('Requisition');
+    $('#ModuleGroup', window.parent.document).val('appvoucher');
+    $('#ModuleID', window.parent.document).val('appvoucher');
+    $('#ModuleName', window.parent.document).val('Voucher');
 
 
     $('input').attr('readonly', 'readonly');
@@ -638,6 +630,7 @@ function loadForm(refid, arr) {
 
     if (!localStorage.getItem('connected') != 'false') {
         if (arr) {
+            
             $('#ArrayIndex').val(arr.TranID);
 
             $('.edit-options').attr('onclick', '').unbind('click');
@@ -645,17 +638,20 @@ function loadForm(refid, arr) {
                 editRecord(arr);
             });
             
+            console.log(arr.TranID);
 
-
-            $('.name').html(arr.Name);
             $('.referenceno').html(arr.TranID);
-            $('.referenceno').html(arr.TranID);
-            $('.itemdesc').html(arr.ItemDesc);
-            $('.requireddate').html(arr.RequiredDate);
-            $('.Qty').html(arr.Qty);
-            $('.UOM').html(arr.UOM);
-            $('.UnitCost').html(formatCurrencyList(arr.UnitCost,true));
-            $('.details').html(arr.Details);
+            $('.trandate').html(convertDate(arr.TranDate, true));
+            $('.Terms').html(arr.Terms);
+            $('.PONo').html(arr.PONo);
+            $('.InvoiceNo').html(arr.InvoiceNo);
+            $('.InvoiceAmt').html(formatCurrencyList(arr.InvoiceAmt,true));
+            $('.Amount').html(arr.InvoiceAmt);
+            $('.ExpenseType').html(arr.ExpenseType);
+            $('.VendorID').html(arr.VendorID);
+            $('.Particulars').html(arr.Particulars);
+            $('.DueDate').html(convertDate(arr.DueDate,true));
+            
         }
 
         $('#btn-delete').hide();
@@ -676,9 +672,9 @@ function loadForm(refid, arr) {
     /*btn-control2*/
 
 
-    $('#requisition-view').show();
-    $('#requisition-form').hide();
-    $('#requisition-list').css('display', 'none');
+    $('#voucher-view').show();
+    $('#voucher-form').hide();
+    $('#voucher-list').css('display', 'none');
 
 
     if (localStorage.getItem('connected') != 'false') {
@@ -688,39 +684,13 @@ function loadForm(refid, arr) {
             jsonpCallback: "callback",
             crossDomain: true,
             dataType: 'jsonp',
-            url: baseUrl + 'apprequisitionlist?jsonformat=jsonp&exactOnly=true&apprequisition=' + refid
+            url: baseUrl + 'appvoucherlist?jsonformat=jsonp&exactOnly=true&appvoucher=' + refid
         });
     } else {
 //        console.log(refid);
 //        console.log(arr[0].Amount);
 
         $('#btn-remove-store').show();
-
-
-//        
-////        console.log(refid);
-////        console.log(arr[0].Amount);
-//
-//        $('#TranID').val(formatValue(arr.TranID, true));
-//        $('#TranDate').val(formatValue(arr.TranDate, true));
-//        $('#TranType').val(formatValue(arr.TranType, true));
-//        $('#Name').val(formatValue(arr.Name, true));
-//        $('#Details').val(formatValue(arr.Details, true));
-//
-////        var $ItemID = $('<option selected>' + formatValue(arr.ItemID, true) + '</option>').val(formatValue(arr.ItemID, true));
-//////        $('#ItemID').append($ItemID).trigger('change');
-//
-//        $('#ItemDesc').val(formatValue(arr.ItemDesc, true));
-//        $('#UOM').val(formatValue(arr.UOM, true));
-//        $('#Qty').val(formatValue(arr.Qty, true));
-//        $('#UnitCost').val(formatCurrencyList(formatValue(arr.UnitCost, true), true));
-//        $('#Amount').val(formatCurrencyList(formatValue(arr.Amount, true), true));
-//        $('#RequiredDate').val(formatValue(arr.RequiredDate, true));
-//        $('#SeqID').val(arr.SeqID);
-//        
-//        $('#ArrayIndex').val(arr.TranID);
-
-
 
 
     }
@@ -730,8 +700,8 @@ function loadForm(refid, arr) {
 
 function closeRecord() {
     enabledInput();
-    $('#requisition-form').css('display', 'none');
-    $('#requisition-list').css('display', 'block');
+    $('#voucher-form').css('display', 'none');
+    $('#voucher-list').css('display', 'block');
 }
 
 
@@ -739,15 +709,15 @@ function itemcallback(response) {
     if (response.success) {
         if (response.usage == 'getDropdownItem') {
             var arr = response.data;
-//            $('.item-select2').select2({
-//                width: null,
-//                prefwidth: 'auto',
-//                placeholder: {
-//                    id: '',
-//                    text: 'Select Item'
-//                },
-//                theme: 'classic'
-//            });
+            $('.item-select2').select2({
+                width: null,
+                prefwidth: 'auto',
+                placeholder: {
+                    id: '',
+                    text: 'Select Item'
+                },
+                theme: 'classic'
+            });
 
             for (var i = 0; i < arr.length; i++) {
                 $('.item-select2').append('<option value=' + arr[i].ItemID + '>' + arr[i].ItemID + '</option>');
@@ -792,11 +762,11 @@ function itemuomcallback(response) {
         if (response.usage == 'getUOM') {
             var arr = response.data;
             var rownum = response.rownum;
-//            $('.itemuom-select2').select2({
-//                width: null,
-//                prefwidth: 'auto',
-//                theme: 'classic'
-//            });
+            $('.itemuom-select2').select2({
+                width: null,
+                prefwidth: 'auto',
+                theme: 'classic'
+            });
 
             for (var i = 0; i < arr.length; i++) {
                 $(".itemuom-select2").empty();
@@ -816,8 +786,7 @@ function computeExtCost() {
     var unitcost = $('#UnitCost').val();
     var amount = (parseFloat(qty.replace(',', '')) * parseFloat(unitcost.replace(',', '')));
 
-//    $('#Amount').val(formatCurrencyList(amount, true));
-    $('#Amount').val(amount);
+    $('#Amount').val(formatCurrencyList(amount, true));
 
 }
 
@@ -830,7 +799,7 @@ function setNumberDefault() {
 
 function SearchTran() {
 
-    $('#table-requisition').find('tbody').empty();
+    $('#table-voucher').find('tbody').empty();
 
     var value = $('#Search').val();
 
@@ -839,7 +808,7 @@ function SearchTran() {
         jsonpCallback: "callback",
         crossDomain: true,
         dataType: 'jsonp',
-        url: baseUrl + 'apprequisitionlist?jsonformat=jsonp&dolimit=true&limitcount=100&limitindex=0&apprequisition=' + value
+        url: baseUrl + 'appvoucherlist?jsonformat=jsonp&dolimit=true&limitcount=100&limitindex=0&appvoucher=' + value
     });
 
 
@@ -865,7 +834,7 @@ var deleteSelectedArr = [];
 function multiDelete() {
 
 
-    var data = objectifyForm($('#requisition-form').serializeArray());
+    var data = objectifyForm($('#voucher-form').serializeArray());
     $('.checkbox_list:checked').each(function() {
         deleteSelectedArr.push($(this).val());
     });
@@ -883,7 +852,7 @@ function multiDelete() {
 
     $.ajax({
         type: 'POST',
-        url: baseUrl + "apprequisitionservlet?operation=MULTI_DELETE",
+        url: baseUrl + "appvoucherservlet?operation=MULTI_DELETE",
         dataType: 'json',
         contentType: "application/json",
         data: JSON.stringify(data),
@@ -920,17 +889,17 @@ function userscallback(response) {
     }
 }
 
-function requisitionLocalStorage() {
+function voucherLocalStorage() {
     var arr = JSON.parse(tempData);
 
     if (arr != null) {
         for (var i = 0; i < arr.length; i++) {
-            $('.requisition-card').append(
+            $('.voucher-card').append(
                     '<div class = "row divrow' + (i) + '" style = "padding:5px;border-bottom: 1px solid #dcdbdb;cursor:pointer">'
-                    + '<div class ="col-xs-7"><span style = "font-style:calibri;font-size: 12pt;font-weight:bold">' + formatValue(arr[i].Name, true) + '</span></div>'
-                    + '<div class ="col-xs-5"><span>PHP' + formatValue(formatCurrencyList(arr[i].Amount, true), true)  + '</span></div>'
+                    + '<div class ="col-xs-7"><span style = "font-style:calibri;font-size: 12pt;font-weight:bold">' + formatValue(arr[i].VendorID, true) + '</span></div>'
+                    + '<div class ="col-xs-5"><span>PHP' + formatValue(arr[i].InvoiceAmt, true) + '</span></div>'
                     + '<div class ="col-xs-12"><span style = "color:#8b8b8b">' + formatValue(arr[i].TranID, true) + '</span></div>'
-                    + '<div class ="col-xs-12"><span>' + formatValue(arr[i].Details, true) + '</span></div>'
+                    + '<div class ="col-xs-12"><span>' + formatValue(arr[i].Particulars, true) + '</span></div>'
                     + '<div class ="col-xs-12"><span class = "fa fa-ellipsis-h"></span> <span>' + formatValue(arr[i].DocStatus, true) + '</span></div>'
                     + '<div class ="col-xs-12"><span>' + i + '</span></div>'
                     + '</div>'
