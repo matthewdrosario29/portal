@@ -369,13 +369,24 @@ function closeMsgAlertnotreload(){
     $('#MsgAlertnotreload').modal('toggle');
 //    window.location.reload();
 }
-function loadHtmlForm(id, submodule, ModuleName ){
+
+function changeActive(module){
+    console.log(module);
+    $('.collapsed').removeClass('active');
+    $('.li-'+module).addClass('active');
+}
+function loadHtmlForm(id, submodule, ModuleName, hide){
+    console.log(id);
+    changeActive(id);
     
+          
     try{
-          $('.pmodules').removeClass('active');
-          $('#'+id).addClass('active');
+          
           $("#iFrame").replaceWith('<iframe class ="adjust-iframe-margin " id ="iFrame" src ="./resources/modules/' + id + '/' + submodule + '.html" height ="99%" width = "100%" style ="border:0px;max-width: 100%;min-width:100%;width:100%;min-height:87vh;margin-top:-20px"></iframe>');
-          hideshowMenu();
+          if(!hide){
+              hideshowMenu();
+          }
+          
           $('.module-name').empty();
           $('.module-name').html(ModuleName);
     }catch(ex){
@@ -537,4 +548,32 @@ function formatCurrencyList(value) {
     var num = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",") + (parts[1] ? "." + parts[1] : "");
     
     return num;
+}
+
+
+function backToModule(){
+    var mg = $('#ModuleGroup').val();
+    var mi = $('#ModuleID').val();
+    var mn = $('#ModuleName').val();
+    loadHtmlForm(mg, mi, mn, true);
+    back();
+}
+
+function back(){
+    $('.sidebarCollapse-media-mobile', window.parent.document).css('display', 'block');
+    $('.sidebar-mobile', window.parent.document).css('display', 'none');
+    
+    
+}
+
+
+function reloadPage(){
+    window.location.reload();
+}
+
+function enabledFields() {
+    $('input').removeAttr('disabled', 'disabled');
+    $('textarea').removeAttr('disabled', 'disabled');
+    $('select').removeAttr('disabled', 'disabled');
+    $('button').removeAttr('disabled', 'disabled');
 }
