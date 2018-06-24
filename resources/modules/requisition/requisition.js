@@ -3,7 +3,7 @@ var connected;
 var tempData;
 var tempIdSetup;
 
-var baseUrl = "http://localhost:8080/portal/";
+var baseUrl = "http://116.93.120.29:8080/portal/";
 
 var objArray = JSON.parse(localStorage.getItem('Access'));
 var UserID = objArray[0].UserID;
