@@ -1,4 +1,4 @@
-var baseUrl = "http://localhost:8080/portal/";
+var baseUrl = "http://116.93.120.29:8080/portal/";
 var email;
 var firstname;
 var userID;
